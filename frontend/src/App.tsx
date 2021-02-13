@@ -1,20 +1,18 @@
 import React from 'react';
-import logo from '@assets/img/logo.svg';
+import {Switch, Route} from 'react-router-dom'
+import {Frontpage} from './components/Frontpage'
+import {MainLayout} from './layout/MainLayout'
+import {Register} from '@/components/Register'
+import {Login} from './components/Login';
 
-function App() {
+export const App: React.FC = () => {
   return (
-    <div className='app'>
-      <header className='app-header'>
-        <img src={logo} className='app-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className='app-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-          Learn React
-        </a>
-      </header>
+    <div id="app">
+      <Switch>
+        <Route exact path="/" render={() => (<MainLayout><Frontpage /></MainLayout>)} />
+        <Route exact path="/register" render={() => (<MainLayout><Register /></MainLayout>)} />
+        <Route exact path="/login" render={() => (<MainLayout><Login /></MainLayout>)} />
+      </Switch>
     </div>
-  );
+  )
 }
-
-export default App;

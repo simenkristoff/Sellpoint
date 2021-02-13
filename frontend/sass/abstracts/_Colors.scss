@@ -1,0 +1,7 @@
+$theme-colours: (
+    'primary': #ec807e,
+);
+
+@function theme($colour) {
+    @return map-get($theme-colours, $colour)
+}

@@ -1,3 +1,6 @@
+@import './abstracts/abstracts';
+@import './mixins/mixins';
+@import './reset';
 /** Components **/
 @import './components/components';
 
@@ -13,4 +16,8 @@ body {
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
+}
+
+.main-content {
+	background: transparent;
 }

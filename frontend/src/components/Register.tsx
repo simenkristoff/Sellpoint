@@ -12,21 +12,21 @@ export const Register: React.FC = () => {
         <Col md={12} span={24}>
         <Card title='Registrer deg'>
         <Form name='normal_register' className='register-form' initialValues={{ remember: true }}>
-          <Form.Item name='username' rules={[{ required: true, message: 'Please input your Username!' }]}>
-            <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Username' />
+          <Form.Item name='username' rules={[{ required: true, message: 'Vennligst tast inn ditt brukernavn!' }]}>
+            <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Brukernavn' />
           </Form.Item>
-          <Form.Item name='epost' rules={[{ required: true, message: 'Please input your Email!' }]}>
+          <Form.Item name='epost' rules={[{ required: true, message: 'Vennligst tast inn din epost!' }]}>
             <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Epost' />
           </Form.Item>
-          <Form.Item name='password' rules={[{ required: true, message: 'Please input your Password!' }]}>
-            <Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='Password' />
+          <Form.Item name='password' rules={[{ required: true, message: 'Vennligst tast inn ditt passord!' }]}>
+            <Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='Passord' />
           </Form.Item>
-          <Form.Item name='confirm-password' hasFeedback dependencies={['password']} rules={[{ required: true, message: 'Please input your Password!' }, ({ getFieldValue }) => ({
+          <Form.Item name='confirm-password' hasFeedback dependencies={['password']} rules={[{ required: true, message: 'Vennligst tast inn ditt passord!' }, ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject('The two passwords that you entered do not match!');
+              return Promise.reject('De to passordene du tastet inn matcher ikke!');
             },
           })]}>
             <Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='Bekreft passord' />

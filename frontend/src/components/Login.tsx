@@ -12,11 +12,11 @@ export const Login: React.FC = () => {
         <Col md={12} span={24}>
         <Card title='Logg inn'>
         <Form name='normal_login' className='login-form' initialValues={{ remember: true }}>
-          <Form.Item name='username' rules={[{ required: true, message: 'Please input your Username!' }]}>
-            <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Username' />
+          <Form.Item name='username' rules={[{ required: true, message: 'Vennligst tast inn brukernavnet ditt!' }]}>
+            <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Brukernavn' />
           </Form.Item>
-          <Form.Item name='password' rules={[{ required: true, message: 'Please input your Password!' }]}>
-            <Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='Password' />
+          <Form.Item name='password' rules={[{ required: true, message: 'Vennligst tast inn passordet ditt!' }]}>
+            <Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='Passord' />
           </Form.Item>
           <Form.Item style={{textAlign: 'center'}}>
             <Space direction='horizontal' >

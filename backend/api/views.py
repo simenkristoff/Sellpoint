@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 from django.shortcuts import render
 
 # Create your views here.
-=======
 from rest_framework import viewsets, permissions
 
 from .models import ProductListing
@@ -18,4 +16,4 @@ class ProductListingViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.AllowAny
     ]
->>>>>>> 7897cc5 (Setup REST API)
+

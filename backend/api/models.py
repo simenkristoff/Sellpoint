@@ -1,6 +1,4 @@
 from django.db import models
-<<<<<<< HEAD
-=======
 from django.contrib.auth.models import User
 
 CATEGORY_CHOICES = [
@@ -18,6 +16,3 @@ class ProductListing(models.Model):
     class Meta: 
         ordering = ['-upload_date']
 
->>>>>>> 7897cc5 (Setup REST API)
-
-# Create your models here.

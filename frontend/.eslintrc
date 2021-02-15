@@ -1,48 +1,55 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "node": true
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaVersion": 2020,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "modules": true,
-            "jsx": true,
-            "arrowFunctions": true
-        }
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:prettier/recommended",
-        "plugin:react/recommended",
-        "plugin:jsx-a11y/strict",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "prettier/@typescript-eslint"
-    ],
-    "plugins": [
-        "react", "jsx-a11y", "@typescript-eslint", "import", "prettier"
-    ],
-    "rules": {
-      "@typescript-eslint/explicit-module-boundary-types": 0,
-      "@typescript-eslint/explicit-function-return-type": 0
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
-        },
-        "import/resolver": {
-          "alias": {
-            "map": [
-              ["@", "./src"],
-              ["@assets", "./assets"],
-              ["@sass", "./sass"]
-            ],
-            "extensions": [".ts", ".tsx", ".js", ".jsx", ".json"]
-          }
+  "env": {
+      "browser": true,
+      "es2021": true,
+      "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module",
+      "ecmaFeatures": {
+          "modules": true,
+          "jsx": true,
+          "arrowFunctions": true
+      }
+  },
+  "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended",
+      "plugin:react/recommended",
+      "plugin:jsx-a11y/strict",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier/@typescript-eslint"
+  ],
+  "plugins": [
+      "react", "jsx-a11y", "@typescript-eslint", "import", "prettier"
+  ],
+  "rules": {
+    "react/prop-types": 0,
+    "newline-before-return": 1,
+    "no-useless-return": 1,
+    "prefer-const": 1,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/ban-types": 0,
+    "@typescript-eslint/no-var-requires": 0
+  },
+  "settings": {
+      "react": {
+          "version": "detect"
+      },
+      "import/resolver": {
+        "alias": {
+          "map": [
+            ["@", "./src"],
+            ["@assets", "./assets"],
+            ["@sass", "./sass"]
+          ],
+          "extensions": [".ts", ".tsx", ".js", ".jsx", ".json"]
         }
       }
+    }
 }

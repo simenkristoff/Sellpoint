@@ -1,13 +1,42 @@
 import React from 'react';
-import logo from '@assets/img/logo.svg';
-import ProductListing from './components/ProductListing';
+import { Switch, Route } from 'react-router-dom';
+import { Frontpage } from './components/Frontpage';
+import { MainLayout } from './layout/MainLayout';
+import { Register } from '@/components/Register';
+import { LoginContainer } from '@/containers/LoginContainer';
 
-function App() {
+export const App: React.FC = () => {
   return (
-    <div className='app'>
-      <ProductListing />
+    <div id='app'>
+      <Switch>
+        <Route
+          exact
+          path='/'
+          render={() => (
+            <MainLayout>
+              <Frontpage />
+            </MainLayout>
+          )}
+        />
+        <Route
+          exact
+          path='/registrer'
+          render={() => (
+            <MainLayout>
+              <Register />
+            </MainLayout>
+          )}
+        />
+        <Route
+          exact
+          path='/logg_inn'
+          render={() => (
+            <MainLayout>
+              <LoginContainer />
+            </MainLayout>
+          )}
+        />
+      </Switch>
     </div>
   );
-}
-
-export default App;
+};

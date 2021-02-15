@@ -1,0 +1,8 @@
+
+.site-footer {
+  background: theme(bg-dark);
+  
+  @include respond-below(sm) {
+    padding: 1rem 0;
+  }
+}

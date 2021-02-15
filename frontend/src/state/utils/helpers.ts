@@ -2,18 +2,24 @@ import _ from 'lodash';
 import { Action, PayloadAction, TypeConstant } from 'typesafe-actions';
 import jwtDecode from 'jwt-decode';
 import cookie from 'js-cookie';
+import moment from 'moment';
 
 import { Entity, AuthToken, DecodedToken } from '../interface';
 
-const COOKIE_STORAGE_KEY = process.env.STORAGE_KEY as string;
+const COOKIE_STORAGE_KEY = 'auth_token';
 
 /**
  * Stores a JWT Auth Token in the web storage
  * @param {string} token the token to be stored
  */
 export function saveToken(token: string) {
+  const decoded: DecodedToken = jwtDecode(token);
+  const expires = moment.unix(decoded.exp);
+
   return cookie.set(COOKIE_STORAGE_KEY, token, {
     path: '/',
+    expires: expires.toDate(),
+    secure: process.env.NODE_ENV === 'production',
   });
 }
 
@@ -30,9 +36,9 @@ export function removeToken() {
 export function getToken(): AuthToken | undefined {
   const token = cookie.get(COOKIE_STORAGE_KEY);
   if (!token) return;
-
   try {
     const decoded: DecodedToken = jwtDecode(token);
+    console.log(decoded);
 
     return {
       ...decoded,

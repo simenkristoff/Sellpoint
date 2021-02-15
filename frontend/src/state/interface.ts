@@ -7,7 +7,7 @@ import { AuthState } from './ducks/auth/types';
  * @member {string} id id of the database object
  */
 export type Entity = {
-  id: string;
+  id: number;
 };
 
 /**
@@ -99,10 +99,11 @@ export type EncodedToken = string;
  * @interface DecodedToken
  */
 export interface DecodedToken {
-  user: {
-    username: string;
-    email: string;
-  };
+  orig_iat: number;
+  exp: number;
+  user_id: string;
+  username: string;
+  email: string;
 }
 
 export interface AuthToken extends DecodedToken {

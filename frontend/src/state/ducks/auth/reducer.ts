@@ -16,7 +16,7 @@ export const loggetOutState: AuthState = {
 
 export const initialState: AuthState = currentUser
   ? {
-      username: currentUser.user.username,
+      username: currentUser.username,
       token: currentUser.token,
       isLoggedIn: true,
       loading: false,

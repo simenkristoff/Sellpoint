@@ -1,9 +1,13 @@
 import React from 'react';
 
 interface IProps {
+  /** Additional classes */
   className?: string;
+  /** Inline css styles */
   style?: React.CSSProperties;
+  /** Container size */
   size: 'default' | 'full';
+  /** Children */
   children?: JSX.Element | JSX.Element[];
 }
 

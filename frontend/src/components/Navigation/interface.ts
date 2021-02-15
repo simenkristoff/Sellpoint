@@ -6,7 +6,7 @@ export type NavigationWrapper<P> = React.FC<P> & {
 /**
  * NavigationInterface.
  * @interface NavigationInterface
- * @member {string} to path
+ * @member {string} id id
  * @member {string} logo the logo to be displayed
  * @member {React.ReactNode} toggler icon for the menu toggler button
  * @member {string} className additional classes
@@ -38,7 +38,7 @@ export interface NavigationListInterface {
  * @member {function} onClick on click action
  */
 export interface NavigationItemInterface {
-  to: string;
+  to?: string;
   icon?: React.ReactNode;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;

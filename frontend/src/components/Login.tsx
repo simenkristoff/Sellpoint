@@ -4,17 +4,30 @@ import { Card, Row, Col, Space } from 'antd';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { ApiResponse, LoginCredentials } from '@/state/interface';
+import { ErrorResponse } from './ErrorResponse';
+import { Spinner } from './Spinner';
+
+interface IProps {
+  login: (credentials: LoginCredentials) => void;
+  loading: boolean;
+  response: ApiResponse | null;
+}
 
 /**
  * Login component. Displays a form which allows users to login.
  */
-export const Login: React.FC = () => {
+export const Login: React.FC<IProps> = ({ login, loading, response }: IProps) => {
+  const [form] = Form.useForm();
+
   return (
     <Container size='default'>
       <Row justify='center' align='middle' style={{ padding: '2rem' }}>
         <Col md={12} span={24}>
           <Card title='Logg inn'>
-            <Form name='normal_login' className='login-form' initialValues={{ remember: true }}>
+            <ErrorResponse response={response} />
+            <Spinner loading={loading} />
+            <Form form={form} onFinish={login} name='login_form' className='login-form' requiredMark={false}>
               <Form.Item name='username' rules={[{ required: true, message: 'Vennligst tast inn brukernavnet ditt!' }]}>
                 <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Brukernavn' />
               </Form.Item>

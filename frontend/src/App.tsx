@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Frontpage } from './components/Frontpage';
 import { MainLayout } from './layout/MainLayout';
 import { Register } from '@/components/Register';
-import { Login } from './components/Login';
+import { LoginContainer } from '@/containers/LoginContainer';
 
 export const App: React.FC = () => {
   return (
@@ -32,7 +32,7 @@ export const App: React.FC = () => {
           path='/logg_inn'
           render={() => (
             <MainLayout>
-              <Login />
+              <LoginContainer />
             </MainLayout>
           )}
         />

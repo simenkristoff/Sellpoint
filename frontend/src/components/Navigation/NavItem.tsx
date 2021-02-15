@@ -18,7 +18,7 @@ const NavItem: React.FC<NavigationItemInterface> = props => {
 
   return (
     <li className={classes.join(' ')}>
-      <Link className='nav-link' to={to} onClick={onClick}>
+      <Link className='nav-link' to={to!} onClick={onClick}>
         {icon}
         {props.children}
       </Link>

@@ -2,8 +2,11 @@ import React from 'react';
 import { Spin } from 'antd';
 
 interface IProps {
+  /** Spinner will spin on true */
   loading: boolean;
+  /** Center the spinner */
   centered?: boolean;
+  /** Additional classes */
   className?: string;
 }
 

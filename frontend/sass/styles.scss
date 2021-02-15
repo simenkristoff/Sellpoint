@@ -1,23 +1,32 @@
 @import './abstracts/abstracts';
 @import './mixins/mixins';
 @import './reset';
+
+/** Layouts **/
+@import './layouts/layouts';
+
 /** Components **/
 @import './components/components';
 
 body {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	margin: 0;
-}
-  
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 100%;
 }
 
-.main-content {
-	background: transparent;
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+#app {
+  height: 100%;
+  overflow-x: hidden;
+  width: 100%;
+
+  > .site-wrapper {
+    height: 100%;
+  }
 }

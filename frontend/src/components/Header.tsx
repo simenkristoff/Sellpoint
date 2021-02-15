@@ -1,23 +1,26 @@
-import React from 'react'
-import {Layout, Menu, Image} from 'antd'
-import {Link} from 'react-router-dom'
+import React from 'react';
+import logo from '@/assets/img/logo.png';
 
+import { Nav } from '@/components/Navigation';
+import { LoginOutlined, UserAddOutlined } from '@ant-design/icons';
 
+/**
+ * Header component. Displays the navigation bar and site logo.
+ */
 export const Header: React.FC = () => {
-    return (
-        <Layout.Header className='site-header'>
-            <Menu mode='horizontal' className='main-nav'>
-                <img src='..\..\assets\img\logo.png' height='60' width='55' style={{paddingBottom:5}}></img>
-                <Menu.Item>
-                    <Link to='/'>Hjem</Link>
-                </Menu.Item>
-                <Menu.Item>
-                    <Link to='/register'>Register</Link>
-                </Menu.Item>
-                <Menu.Item>
-                    <Link to='/login'>Logg inn</Link>
-                </Menu.Item>
-            </Menu>
-        </Layout.Header>
-    )
-}
+  return (
+    <header className='site-header'>
+      <Nav logo={logo}>
+        <Nav.List align='right'>
+          <Nav.Item to='/'>Hjem</Nav.Item>
+          <Nav.Item icon={<LoginOutlined />} to='/logg_inn'>
+            Logg inn
+          </Nav.Item>
+          <Nav.Item icon={<UserAddOutlined />} to='/registrer'>
+            Registrer bruker
+          </Nav.Item>
+        </Nav.List>
+      </Nav>
+    </header>
+  );
+};

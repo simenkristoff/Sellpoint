@@ -1,7 +1,9 @@
 .site-header {
-    background: theme('primary');
-
-    .main-nav {
-        background: transparent;
-    }
+  background-color: theme(bg-light);
+  border-bottom: 2px solid theme(border-light);
+  display: flex;
+  flex: 0 1 auto;
+  flex-flow: column;
+  position: relative;
+  z-index: 1000;
 }

@@ -1,7 +1,26 @@
 $theme-colours: (
-    'primary': #ec807e,
+  'primary': #1890ff,
+  'primary-light': #69c0ff,
+  'primary-dark': #096dd9,
+  'primary-hover': #40a9ff,
+  'primary-text': #222,
+  'secondary': #1890ff,
+  'secondary-light': #69c0ff,
+  'secondary-dark': #096dd9,
+  'secondary-hover': #40a9ff,
+  'secondary-text': #222,
+  'state-success': #4caf50,
+  'state-warning': #fdd835,
+  'state-danger': #e53935,  
+  'bg-dark': #001529,
+  'bg-gray': #f0f2f5,
+  'bg-light': #fff,
+  'border-light': #e3e3e3,
+  'text-primary': #222,
+  'text-light': #fff,
+  'text-muted': lighten(#222, 30),
+  
 );
 
 @function theme($colour) {
-    @return map-get($theme-colours, $colour)
-}
+  @return map-get($theme-colours, $colour); }

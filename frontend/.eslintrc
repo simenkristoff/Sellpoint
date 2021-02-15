@@ -27,6 +27,10 @@
         "react", "jsx-a11y", "@typescript-eslint", "import", "prettier"
     ],
     "rules": {
+      "react/prop-types": 0,
+      "newline-before-return": 1,
+      "no-useless-return": 1,
+      "prefer-const": 1,
       "@typescript-eslint/explicit-module-boundary-types": 0,
       "@typescript-eslint/explicit-function-return-type": 0
     },

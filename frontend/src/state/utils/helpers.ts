@@ -7,8 +7,6 @@ import { Entity, AuthToken, DecodedToken } from '../interface';
 
 const COOKIE_STORAGE_KEY = process.env.STORAGE_KEY as string;
 
-console.log(process.env);
-
 /**
  * Stores a JWT Auth Token in the web storage
  * @param {string} token the token to be stored

@@ -6,14 +6,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
 
-@api_view(['GET'])
-def get_user_by_ID(request):
-    """
-    Determine user by their primary key (id)
-    """
-
-    # return User.objects.get(request.)
-
 
 @api_view(['GET'])
 def current_user(request):

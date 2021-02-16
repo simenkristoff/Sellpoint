@@ -9,10 +9,11 @@ CATEGORY_CHOICES = [
 ]
 
 class ProductListing(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owner")
-    purchaser = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name="purchaser")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ownerID")
+    purchaser = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name="purchaserID")
     upload_date = models.DateTimeField(auto_now_add=True)
     price = models.IntegerField()
+    description = models.TextField(default=None, blank=True)
     has_been_sold = models.BooleanField(default=False)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=20)
 

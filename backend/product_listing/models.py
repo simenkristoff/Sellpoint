@@ -19,6 +19,7 @@ class ProductListing(models.Model):
     purchaser = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name="purchaserID")
     upload_date = models.DateTimeField(auto_now_add=True)
     price = models.IntegerField()
+    title = models.CharField(max_length=50)
     description = models.TextField(default=None, blank=True, null=True)
     has_been_sold = models.BooleanField(default=False)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=20, blank=True, null=True)

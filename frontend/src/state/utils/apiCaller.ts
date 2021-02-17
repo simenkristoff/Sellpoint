@@ -1,3 +1,4 @@
+import { AuthToken } from '../interface';
 import { getToken } from './helpers';
 
 const API_URL = process.env.API_URL as string;
@@ -26,16 +27,18 @@ function handleResponse(response: Response) {
  * @param {string} path api path
  * @param data data to be sent
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export default function apiCaller(method: string, path: string, data?: any) {
+  const authToken: AuthToken | undefined = getToken();
+  const requestHeader: HeadersInit = new Headers();
+  requestHeader.set('Accept', 'application/json');
+  requestHeader.set('Content-Type', 'application/json');
+  requestHeader.set('Origin', 'http://localhost:3000');
+  if (authToken) requestHeader.set('Authorization', `Bearer ${authToken.token}`);
+
   return fetch(`${API_URL}/${path}`, {
     method,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Origin: 'http://localhost:3000',
-      Authorization: `JWT ${getToken()?.token}`,
-    },
+    headers: requestHeader,
     body: data ? JSON.stringify(data) : null,
   })
     .then(handleResponse)

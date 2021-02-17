@@ -46,11 +46,11 @@ export const ProductListingList: React.FC = () => {
             </Link>
             <Row className='card-header'>
               <Col className='title' span={12}>
-                <Link to={{
-                  pathname: `/annonser/${product.id.toString()}`,
-                  state: {
-                    product_id: product.id
-                  }}}>
+                <Link
+                  to={{
+                    pathname: `/annonser/${product.id.toString()}`,
+                  }}
+                >
                   <h1>{product.title}</h1>
                 </Link>
               </Col>

@@ -1,6 +1,5 @@
-import React, { Component, useEffect, useState } from 'react';
-import { render } from 'react-dom';
-import { useParams, RouteComponentProps } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Image } from 'antd';
 import { IProductListing } from './ProductListingList';
 import { MainLayout } from '../../layout/MainLayout';
@@ -14,9 +13,7 @@ export const ProductListing: React.FC = () => {
   const params = useParams<RouteParams>();
   const annonseID = params.id;
 
-  useEffect(() => {
-    // console.log("params", params);
-    // Test apiUrl
+  useEffect(() => { 
     const apiUrl = 'http://localhost:8000/product/products/' + annonseID;
     fetch(apiUrl)
       .then(res => res.json())

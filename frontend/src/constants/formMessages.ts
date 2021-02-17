@@ -11,6 +11,7 @@ const FormMessage = {
   PASSWORD: {
     LABEL: 'Passord',
     REQUIRED: 'Fyll inn passordet ditt',
+    LENGTH: 'Passord må være minst 8 tegn'
   },
   CONFIRM_PASSWORD: {
     LABEL: 'Bekreft passord',

@@ -10,11 +10,10 @@ interface RouteParams {
 
 export const ProductListing: React.FC = () => {
   const [productInfo, setProductInfo] = useState<IProductListing>();
-  const params = useParams<RouteParams>();
-  const annonseID = params.id;
+  const { id } = useParams<RouteParams>();
 
-  useEffect(() => { 
-    const apiUrl = 'http://localhost:8000/product/products/' + annonseID;
+  useEffect(() => {
+    const apiUrl = 'http://localhost:8000/product/products/' + id;
     fetch(apiUrl)
       .then(res => res.json())
       .then(data => {
@@ -25,10 +24,10 @@ export const ProductListing: React.FC = () => {
 
   // Test return statement
   return (
-    <MainLayout>
+    <div>
       <h1>{productInfo?.title}</h1>
       <p>{productInfo?.description}</p>
       <Image src={productInfo?.image}></Image>
-    </MainLayout>
+    </div>
   );
 };

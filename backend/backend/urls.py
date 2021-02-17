@@ -9,8 +9,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('token-auth/', obtain_jwt_token),
-    path('user/', include('user.urls')),
+    url(r'^api/', include('user.urls')),
     path('product/', include('product_listing.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

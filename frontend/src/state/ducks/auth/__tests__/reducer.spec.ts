@@ -21,7 +21,8 @@ describe('auth reducer', () => {
     ).toEqual({
       ...signedOutState,
       isLoggedIn: true,
-      username: 'simen',
+      username: apiLoginSuccessResponse.username,
+      email: apiLoginSuccessResponse.email,
       token: authToken,
       loading: false,
       status: null,

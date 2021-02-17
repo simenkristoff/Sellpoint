@@ -11,14 +11,13 @@ export const authToken: EncodedToken =
 
 export const apiLoginSuccessResponse = {
   token: authToken,
-  user: {
-    username: 'simen',
-    email: 'simen.kristoffersen98@gmail.com',
-  },
+  username: 'simen',
+  email: 'simen.kristoffersen98@gmail.com',
 };
 
 export const signedOutState: AuthState = {
   username: null,
+  email: null,
   token: null,
   isLoggedIn: false,
   loading: false,
@@ -27,6 +26,7 @@ export const signedOutState: AuthState = {
 
 export const signedInState: AuthState = {
   username: 'simen',
+  email: 'test.testesen@test.no',
   token: authToken,
   isLoggedIn: true,
   loading: false,

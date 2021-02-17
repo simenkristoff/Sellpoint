@@ -1,23 +1,23 @@
 import React, { Component, useEffect, useState } from 'react';
 import { render } from 'react-dom';
+import { useParams, RouteComponentProps } from 'react-router-dom';
 import { Image } from 'antd';
+import { IProductListing } from './ProductListingList';
+import { MainLayout } from '../../layout/MainLayout';
 
-export interface IProductListing {
-  owner_username: number;
-  purchaser_username?: number | null;
-  upload_date: string; // må konverteres til dato med .toUTCString()
-  price: number;
-  description: string | null;
-  has_been_sold: boolean;
-  category?: string;
+interface RouteParams {
+  id: string;
 }
 
 export const ProductListing: React.FC = () => {
   const [productInfo, setProductInfo] = useState<IProductListing>();
+  const params = useParams<RouteParams>();
+  const annonseID = params.id;
 
   useEffect(() => {
+    // console.log("params", params);
     // Test apiUrl
-    const apiUrl = 'http://localhost:8000/product/products/12/';
+    const apiUrl = 'http://localhost:8000/product/products/' + annonseID;
     fetch(apiUrl)
       .then(res => res.json())
       .then(data => {
@@ -28,10 +28,10 @@ export const ProductListing: React.FC = () => {
 
   // Test return statement
   return (
-    <div>
-      <p>Upload Date: {productInfo?.owner_username}</p>
-      {JSON.stringify(productInfo, null, '\t')}
-      <Image width={200} src='http://localhost:8000/media/user_2/pink-car.jpg' />
-    </div>
+    <MainLayout>
+      <h1>{productInfo?.title}</h1>
+      <p>{productInfo?.description}</p>
+      <Image src={productInfo?.image}></Image>
+    </MainLayout>
   );
 };

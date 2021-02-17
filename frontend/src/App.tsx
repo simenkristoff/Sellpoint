@@ -37,15 +37,16 @@ export const App: React.FC = () => {
             </MainLayout>
           )}
         />
-        <Route
+        {/* <Route
           exact
-          path='/annonser'
+          path='/annonser/:annonseID'
           render={() => (
             <MainLayout>
               <ProductListing />
             </MainLayout>
           )}
-        />
+        /> */}
+        <Route path='/annonser/:id' component={ProductListing}></Route>
       </Switch>
     </div>
   );

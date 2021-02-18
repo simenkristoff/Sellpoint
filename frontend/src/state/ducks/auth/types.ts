@@ -1,6 +1,10 @@
 import { ApiResponse, EncodedToken, TMetaAction, TPayloadMetaAction } from '@/state/interface';
 import { generateAsyncAction } from '@/state/utils/generateAsyncAction';
 
+/**
+ * Interface describing the Auth state
+ * @interface AuthState
+ */
 export interface AuthState {
   readonly username: string | null;
   readonly email: string | null;
@@ -10,6 +14,10 @@ export interface AuthState {
   readonly status: ApiResponse | null;
 }
 
+/**
+ * Interface describing the required login credentials
+ * @interface LoginCredentials
+ */
 export interface LoginCredentials {
   username: string;
   password: string;
@@ -31,6 +39,10 @@ export const AuthActionTypes = {
   CLEAR: '@@auth.CLEAR',
 };
 
+/**
+ * The available Auth actions
+ * @interface AuthActions
+ */
 export interface AuthActions {
   login: (credentials: LoginCredentials) => TPayloadMetaAction<LoginCredentials>;
   register: (credentials: RegisterCredentials) => TPayloadMetaAction<RegisterCredentials>;

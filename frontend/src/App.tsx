@@ -5,6 +5,7 @@ import { MainLayout } from './layout/MainLayout';
 import { Register } from '@/components/Register';
 import { LoginContainer } from '@/containers/LoginContainer';
 import { RegisterContainer } from './containers/RegisterContainer';
+import { ProductListing } from './components/ProductListing/ProductListing';
 
 export const App: React.FC = () => {
   return (
@@ -34,6 +35,14 @@ export const App: React.FC = () => {
           render={() => (
             <MainLayout>
               <LoginContainer />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path='/annonser/:id'
+          render={() => (
+            <MainLayout>
+              <ProductListing />
             </MainLayout>
           )}
         />

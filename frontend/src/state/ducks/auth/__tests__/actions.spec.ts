@@ -6,10 +6,10 @@ import { AuthActionTypes } from '../types';
 import { authLogin } from './__mockData__/authData';
 
 describe('auth actions', () => {
-  it('should post to: token-auth/', () => {
+  it('should post to: user/login/', () => {
     const expectedAction = action(AuthActionTypes.LOGIN.START, authLogin, {
       method: 'post',
-      route: 'token-auth/',
+      route: 'user/login/',
     });
 
     expect(login(authLogin)).toEqual(expectedAction);

@@ -27,7 +27,7 @@ function handleResponse(response: Response) {
  * @param {string} path api path
  * @param data data to be sent
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export default function apiCaller(method: string, path: string, data?: any) {
   const authToken: AuthToken | undefined = getToken();
   const requestHeader: HeadersInit = new Headers();

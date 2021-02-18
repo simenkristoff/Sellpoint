@@ -1,5 +1,12 @@
 import { PayloadAction, PayloadMetaAction, TypeConstant } from 'typesafe-actions';
 import { AuthState } from './ducks/auth/types';
+import { UserState } from './ducks/user/types';
+
+/**
+ * Type of Id.
+ * @typedef EntityId
+ */
+export type EntityId = number;
 
 /**
  * Type base entity of which all other entities is an extension of.
@@ -7,7 +14,7 @@ import { AuthState } from './ducks/auth/types';
  * @member {string} id id of the database object
  */
 export type Entity = {
-  id: number;
+  id: EntityId;
 };
 
 /**
@@ -22,13 +29,13 @@ export type ApiResponse = { [key: string]: string };
  * @member {T | {}} byId the selected object
  * @member {T[]} data array of objects fetched from database
  * @member {boolean} loading state of action. Loading or done.
- * @member {ApiResponse | null} status status of the action
+ * @member {string | null} status status of the action
  */
 export interface BaseState<T extends Entity> {
   byId: T | {};
   readonly data: T[];
   readonly loading: boolean;
-  readonly status: ApiResponse | null;
+  readonly status: string | null;
 }
 
 /**
@@ -37,6 +44,7 @@ export interface BaseState<T extends Entity> {
  */
 export interface IApplicationState {
   auth: AuthState;
+  user: UserState;
 }
 
 /**

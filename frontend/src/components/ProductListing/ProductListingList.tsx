@@ -5,6 +5,7 @@ import { Image } from 'antd';
 import { Card, Avatar, Row, Col, Divider } from 'antd';
 import { EditOutlined, EllipsisOutlined, RocketTwoTone, SettingOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
+import { DeleteButton } from '../DeleteButton';
 
 const { Meta } = Card;
 const style = { background: '#0092ff', padding: '8px 0' };
@@ -60,6 +61,7 @@ export const ProductListingList: React.FC = () => {
               <Link to='#'>
                 <h3>@{product.owner_username}</h3>
               </Link>
+              <DeleteButton url={`http://localhost:8000/product/products/${product.id.toString()}`} />
             </Row>
           </div>
         </Col>

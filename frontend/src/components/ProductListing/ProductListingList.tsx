@@ -8,6 +8,7 @@ import 'antd/dist/antd.css';
 import { DeleteButton } from '../DeleteButton';
 import { useSelector } from 'react-redux';
 import {IApplicationState} from '@/state/interface';
+import { apiCaller } from '@/state/utils';
 
 const { Meta } = Card;
 const style = { background: '#0092ff', padding: '8px 0' };
@@ -40,6 +41,10 @@ export const ProductListingList: React.FC = () => {
         setProductList(data as IProductListing[]);
       });
   }, []);
+  
+  const deleteRequest = (url: string) => {
+    apiCaller('DELETE', url);
+  };
 
   return (
     <Row style={{ margin: '1rem' }}>
@@ -65,7 +70,7 @@ export const ProductListingList: React.FC = () => {
               <Link to='#'>
                 <h3>@{product.owner_username}</h3>
               </Link>
-              {isAdmin && <DeleteButton url={`http://localhost:8000/product/products/${product.id.toString()}`} tooltipText='Slett Annonse' />}
+              {isAdmin && <DeleteButton onClick={() => deleteRequest(`product/products/${product.id.toString()}`)} tooltipText='Slett Annonse' />}
             </Row>
           </div>
         </Col>

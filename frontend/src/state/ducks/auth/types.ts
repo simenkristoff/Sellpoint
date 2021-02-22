@@ -8,6 +8,7 @@ import { generateAsyncAction } from '@/state/utils/generateAsyncAction';
 export interface AuthState {
   readonly username: string | null;
   readonly email: string | null;
+  readonly isAdmin: boolean;
   readonly token: EncodedToken | null;
   readonly isLoggedIn: boolean;
   readonly loading: boolean;

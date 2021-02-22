@@ -143,6 +143,7 @@ REST_FRAMEWORK = {
 
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'backend.utils.jwt_response_handler',
+    'JWT_PAYLOAD_HANDLER': 'backend.utils.jwt_payload_handler',
     'JWT_EXPIRATION_DELTA': timedelta(days=2),
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),

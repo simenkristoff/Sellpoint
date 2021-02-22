@@ -5,6 +5,7 @@ import { MainLayout } from './layout/MainLayout';
 import { Register } from '@/components/Register';
 import { LoginContainer } from '@/containers/LoginContainer';
 import { ProductListing } from './components/ProductListing/ProductListing';
+import { ProductListingCreate } from './components/ProductListing/ProductListingCreate';
 
 export const App: React.FC = () => {
   return (
@@ -42,6 +43,15 @@ export const App: React.FC = () => {
           render={() => (
             <MainLayout>
               <ProductListing />
+            </MainLayout>
+          )}
+        />
+        <Route
+          exact
+          path='/opprett-annonse'
+          render={() => (
+            <MainLayout>
+              <ProductListingCreate />
             </MainLayout>
           )}
         />

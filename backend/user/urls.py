@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
-from user.views import UserViewSet, RegisterView
+from .views import UserViewSet, RegisterView
 
 user_list = UserViewSet.as_view({
     'get': 'list'

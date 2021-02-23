@@ -15,6 +15,7 @@ const style = { background: '#0092ff', padding: '8px 0' };
 
 export interface IProductListing {
   id: number;
+  owner: number;
   owner_username: number;
   purchaser_username?: number | null;
   upload_date: string; // convert to date with .toUTCString()

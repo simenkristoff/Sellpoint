@@ -7,6 +7,8 @@ import { generateAsyncAction } from '@/state/utils/generateAsyncAction';
  */
 export interface AuthState {
   readonly username: string | null;
+  readonly email: string | null;
+  readonly isAdmin: boolean;
   readonly token: EncodedToken | null;
   readonly isLoggedIn: boolean;
   readonly loading: boolean;
@@ -22,10 +24,6 @@ export interface LoginCredentials {
   password: string;
 }
 
-/**
- * Interface describing the required register credentials
- * @interface RegisterCredentials
- */
 export interface RegisterCredentials {
   username: string;
   email: string;
@@ -35,11 +33,9 @@ export interface RegisterCredentials {
   password2: string;
 }
 
-/**
- * The available Auth action types
- */
 export const AuthActionTypes = {
   LOGIN: generateAsyncAction('@@auth.LOGIN'),
+  REGISTER: generateAsyncAction('@@auth.REGISTER'),
   LOGOUT: '@@auth.LOGOUT',
   CLEAR: '@@auth.CLEAR',
 };
@@ -50,6 +46,7 @@ export const AuthActionTypes = {
  */
 export interface AuthActions {
   login: (credentials: LoginCredentials) => TPayloadMetaAction<LoginCredentials>;
+  register: (credentials: RegisterCredentials) => TPayloadMetaAction<RegisterCredentials>;
   logout: () => TMetaAction;
   clear: () => TMetaAction;
 }

@@ -112,6 +112,7 @@ export interface DecodedToken {
   user_id: string;
   username: string;
   email: string;
+  is_superuser: boolean;
 }
 
 export interface AuthToken extends DecodedToken {

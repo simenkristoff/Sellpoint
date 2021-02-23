@@ -4,6 +4,7 @@ import { Frontpage } from './components/Frontpage';
 import { MainLayout } from './layout/MainLayout';
 import { Register } from '@/components/Register';
 import { LoginContainer } from '@/containers/LoginContainer';
+import { RegisterContainer } from './containers/RegisterContainer';
 import { ProductListing } from './components/ProductListing/ProductListing';
 import { ProductListingCreate } from './components/ProductListing/ProductListingCreate';
 
@@ -25,7 +26,7 @@ export const App: React.FC = () => {
           path='/registrer'
           render={() => (
             <MainLayout>
-              <Register />
+              <RegisterContainer />
             </MainLayout>
           )}
         />

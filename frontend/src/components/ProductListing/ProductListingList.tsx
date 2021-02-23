@@ -5,6 +5,10 @@ import { Image } from 'antd';
 import { Card, Avatar, Row, Col, Divider } from 'antd';
 import { EditOutlined, EllipsisOutlined, RocketTwoTone, SettingOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
+import { DeleteButton } from '../DeleteButton';
+import { useSelector } from 'react-redux';
+import {IApplicationState} from '@/state/interface';
+import { apiCaller } from '@/state/utils';
 
 const { Meta } = Card;
 const style = { background: '#0092ff', padding: '8px 0' };
@@ -27,6 +31,8 @@ export const ProductListingList: React.FC = () => {
   const [productList, setProductList] = useState<IProductListing[]>([]);
   const [rowCount, setRowCount] = useState(0);
 
+  const {isAdmin} = useSelector(({auth}: IApplicationState) => auth)
+
   useEffect(() => {
     const apiUrl = 'http://localhost:8000/product/products/';
     fetch(apiUrl)
@@ -36,6 +42,10 @@ export const ProductListingList: React.FC = () => {
         setProductList(data as IProductListing[]);
       });
   }, []);
+  
+  const deleteRequest = (url: string) => {
+    apiCaller('DELETE', url);
+  };
 
   return (
     <Row style={{ margin: '1rem' }}>
@@ -61,6 +71,7 @@ export const ProductListingList: React.FC = () => {
               <Link to='#'>
                 <h3>@{product.owner_username}</h3>
               </Link>
+              {isAdmin && <DeleteButton onClick={() => deleteRequest(`product/products/${product.id.toString()}`)} tooltipText='Slett Annonse' />}
             </Row>
           </div>
         </Col>

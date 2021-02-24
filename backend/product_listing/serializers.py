@@ -6,30 +6,36 @@ from .models import ProductListing
 
 class ProductListingSerializer(serializers.ModelSerializer):
 
-    owner_username = serializers.SerializerMethodField('get_owner_username')
-    purchaser_username = serializers.SerializerMethodField('get_purchaser_username')
+    owner_details = serializers.SerializerMethodField('get_owner')
+    purchaser_username = serializers.SerializerMethodField(
+        'get_purchaser_username')
 
     class Meta:
         model = ProductListing
         fields = '__all__'
-        extra_fields = ['owner_username']
+        extra_fields = ['owner_details']
 
     def get_field_names(self, declared_fields, info):
-        expanded_fields = super(ProductListingSerializer, self).get_field_names(declared_fields, info)
+        expanded_fields = super(ProductListingSerializer, self).get_field_names(
+            declared_fields, info)
 
         if getattr(self.Meta, 'extra_fields', None):
             return expanded_fields + self.Meta.extra_fields
         else:
             return expanded_fields
 
-    def get_owner_username(self, product_listing):
+    def get_owner(self, product_listing):
         if product_listing.owner is not None:
-            username = User.objects.get(id=product_listing.owner.id).username
-            return username
+            user = User.objects.get(id=product_listing.owner.id)
+            owner_details = {"username": user.username, "first_name": user.first_name,
+                             "last_name": user.last_name, "email": user.email}
+            return owner_details
         return None
 
     def get_purchaser_username(self, product_listing):
         if product_listing.purchaser is not None:
-            username = User.objects.get(id=product_listing.purchaser.id).username
+            username = User.objects.get(
+                id=product_listing.purchaser.id).username
             return username
         return None
+

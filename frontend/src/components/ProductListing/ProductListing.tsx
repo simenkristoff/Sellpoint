@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Image } from 'antd';
 import { IProductListing } from './ProductListingList';
-import { MainLayout } from '../../layout/MainLayout';
 import { IApplicationState } from '@/state/interface';
 import { fetchUsers, fetchUserById } from '@/state/ducks/user/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { Row, Col, Card, Typography } from 'antd';
+import { Container } from '../Container';
+
+const { Title } = Typography;
+interface RouteParams {
+  id: string;
+}
 
 interface RouteParams {
   id: string;
@@ -29,20 +35,36 @@ export const ProductListing: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchUsers());
-    if (productInfo) dispatch(fetchUserById(productInfo?.owner!));
+    if (productInfo) dispatch(fetchUserById(productInfo?.owner!)); 
   }, [productInfo]);
+
+  console.log(byId);
+  const owner_details = byId
+  console.log("owner_details:", owner_details)
 
   // Test return statement
   return (
-    <div>
-      <h1>{productInfo?.title}</h1>
-      <p>{productInfo?.description}</p>
-      <Image src={productInfo?.image}></Image>
-      <h2>All users</h2>
-      <pre>{JSON.stringify(data, undefined, 2)}</pre>
-      <h2>User by Id</h2>
-      <pre>{JSON.stringify(byId, undefined, 2)}</pre>
-      {data.length > 0 && data[0].id}
-    </div>
+    <Container size='default' className='product-single'>
+      <Row justify='space-between'>
+        <Col className='image-view' span={17}>
+          <Image src={productInfo?.image}></Image>
+        </Col>
+        <Col className='product-details' span={6}>
+          <Card title={`@${productInfo?.owner_details.username}`} extra={<a href="#">More</a>} style={{ width: 300 }}>
+            <p>{productInfo?.owner_details.first_name} {productInfo?.owner_details.last_name}</p>
+            <p>Epost: {productInfo?.owner_details.email}</p>
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <Title>
+            {productInfo?.title}
+            <Title level={3}>{productInfo?.price} kr</Title>
+          </Title>
+          <h2>{productInfo?.description}</h2>
+        </Col>
+      </Row>
+    </Container>
   );
 };

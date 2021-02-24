@@ -9,7 +9,7 @@ import { EntityId } from '@/state/interface';
 export const fetchUsers = () =>
   action(UserActionTypes.FETCH.START, [], {
     method: 'get',
-    route: 'api/users/',
+    route: 'user/users/',
   });
 
 /**
@@ -19,7 +19,7 @@ export const fetchUsers = () =>
 export const fetchUserById = (id: EntityId) =>
   action(UserActionTypes.FETCH_ONE.START, [], {
     method: 'get',
-    route: `api/users/${id}/`,
+    route: `user/users/${id}/`,
   });
 
 /**

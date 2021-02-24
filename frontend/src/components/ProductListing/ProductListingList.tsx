@@ -16,6 +16,12 @@ const style = { background: '#0092ff', padding: '8px 0' };
 export interface IProductListing {
   id: number;
   owner: number;
+  owner_details: {
+    username: string;
+    email: string;
+    first_name: string | undefined;
+    last_name: string | undefined;
+  };
   owner_username: number;
   purchaser_username?: number | null;
   upload_date: string; // convert to date with .toUTCString()
@@ -69,7 +75,7 @@ export const ProductListingList: React.FC = () => {
                 {product.price} NOK
               </Col>
               <Link to='#'>
-                <h3>@{product.owner_username}</h3>
+                <h3>@{product.owner_details.username}</h3>
               </Link>
               {isAdmin && <DeleteButton onClick={() => deleteRequest(`product/products/${product.id.toString()}`)} tooltipText='Slett Annonse' />}
             </Row>
@@ -79,21 +85,3 @@ export const ProductListingList: React.FC = () => {
     </Row>
   );
 };
-
-{
-  /* <Card
-  style={{ width: '90%', marginBottom: '1rem', borderBlockColor: 'black' }}
-  cover={<img alt='example' src={product.image} style={{ height: 300 }} />}
-  // actions={[
-  //   <SettingOutlined key="setting" />,
-  //   <EditOutlined key="edit" />,
-  //   <EllipsisOutlined key="ellipsis" />,
-  // ]}
->
-  <Meta
-    avatar={<Avatar src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />}
-    title={product.title}
-    description={'Pris: ' + product.price.toString() + ' NOK'}
-  />
-</Card> */
-}

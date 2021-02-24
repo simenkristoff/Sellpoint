@@ -12,6 +12,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for listing or retrieving users.
     """
+    queryset = User.objects.all()
 
     def list(self, request):
         queryset = User.objects.all()

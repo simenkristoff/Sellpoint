@@ -52,7 +52,7 @@ export const authReducer = (
     case AuthActionTypes.REGISTER.SUCCESS:
       return {
         ...state,
-        user_id: action.payload.user_id,
+        user_id: action.payload.id,
         username: action.payload.username,
         email: action.payload.email,
         isAdmin: action.payload.is_superuser,

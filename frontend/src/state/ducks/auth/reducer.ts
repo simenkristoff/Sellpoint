@@ -12,6 +12,7 @@ import { AuthActionTypes, AuthState } from './types';
 const currentUser: AuthToken | undefined = getToken();
 
 export const loggetOutState: AuthState = {
+  user_id: null,
   username: null,
   email: null,
   isAdmin: false,
@@ -27,6 +28,7 @@ export const loggetOutState: AuthState = {
  */
 export const initialState: AuthState = currentUser
   ? {
+      user_id: currentUser.user_id,
       username: currentUser.username,
       email: currentUser.email,
       isAdmin: currentUser.is_superuser,
@@ -50,6 +52,7 @@ export const authReducer = (
     case AuthActionTypes.REGISTER.SUCCESS:
       return {
         ...state,
+        user_id: action.payload.user_id,
         username: action.payload.username,
         email: action.payload.email,
         isAdmin: action.payload.is_superuser,

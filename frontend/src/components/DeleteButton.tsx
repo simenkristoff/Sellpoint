@@ -1,7 +1,6 @@
 import React from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
-import { apiCaller } from '@/state/utils';
 
 interface IProps {
   /** function to be executed on click */
@@ -12,9 +11,8 @@ interface IProps {
 }
 
 export const DeleteButton: React.FC<IProps> = (props: IProps) => {
-
   return (
-    <Tooltip title={props.tooltipText} >
+    <Tooltip title={props.tooltipText}>
       <Button type='primary' shape='circle' icon={<DeleteOutlined />} danger onClick={() => props.onClick()} />
     </Tooltip>
   );

@@ -23,7 +23,7 @@ export interface UserEntity extends Entity {
  */
 export const UserActionTypes = {
   FETCH: generateAsyncAction('@@user.FETCH'),
-  FETCH_ONE: generateAsyncAction('@@user.FETCH_ONE'),
+  FETCH_BY_ID: generateAsyncAction('@@user.FETCH_BY_ID'),
   SET: '@@user.SET',
   CLEAR: '@@user.CLEAR',
 };

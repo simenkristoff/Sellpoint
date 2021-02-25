@@ -1,4 +1,4 @@
-import { ApiResponse, EncodedToken, TMetaAction, TPayloadMetaAction } from '@/state/interface';
+import { ApiResponse, EncodedToken, EntityId, TMetaAction, TPayloadMetaAction } from '@/state/interface';
 import { generateAsyncAction } from '@/state/utils/generateAsyncAction';
 
 /**
@@ -6,6 +6,7 @@ import { generateAsyncAction } from '@/state/utils/generateAsyncAction';
  * @interface AuthState
  */
 export interface AuthState {
+  readonly user_id: EntityId | null;
   readonly username: string | null;
   readonly email: string | null;
   readonly isAdmin: boolean;

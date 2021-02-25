@@ -1,12 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Frontpage } from './components/Frontpage';
 import { MainLayout } from './layout/MainLayout';
-import { Register } from '@/components/Register';
 import { LoginContainer } from '@/containers/LoginContainer';
 import { RegisterContainer } from './containers/RegisterContainer';
-import { ProductListing } from './components/ProductListing/ProductListing';
-import { ProductListingCreate } from './components/ProductListing/ProductListingCreate';
+import { ProductListContainer } from './containers/ProductListContainer';
+import { ProductSingleContainer } from './containers/ProductSingleContainer';
 
 export const App: React.FC = () => {
   return (
@@ -17,7 +15,7 @@ export const App: React.FC = () => {
           path='/'
           render={() => (
             <MainLayout>
-              <Frontpage />
+              <ProductListContainer />
             </MainLayout>
           )}
         />
@@ -40,19 +38,10 @@ export const App: React.FC = () => {
           )}
         />
         <Route
-          path='/annonser/:id'
+          path='/annonser/:productId'
           render={() => (
             <MainLayout>
-              <ProductListing />
-            </MainLayout>
-          )}
-        />
-        <Route
-          exact
-          path='/opprett-annonse'
-          render={() => (
-            <MainLayout>
-              <ProductListingCreate />
+              <ProductSingleContainer />
             </MainLayout>
           )}
         />

@@ -1,5 +1,6 @@
 import { PayloadAction, PayloadMetaAction, TypeConstant } from 'typesafe-actions';
 import { AuthState } from './ducks/auth/types';
+import { ProductState } from './ducks/product/types';
 import { UserState } from './ducks/user/types';
 
 /**
@@ -45,6 +46,7 @@ export interface BaseState<T extends Entity> {
 export interface IApplicationState {
   auth: AuthState;
   user: UserState;
+  product: ProductState;
 }
 
 /**
@@ -109,7 +111,7 @@ export type EncodedToken = string;
 export interface DecodedToken {
   orig_iat: number;
   exp: number;
-  user_id: string;
+  user_id: EntityId;
   username: string;
   email: string;
   is_superuser: boolean;

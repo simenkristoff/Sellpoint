@@ -40,17 +40,17 @@ function* handleFetch(params: TMetaAction): Generator {
 function* handleFetchById(params: TPayloadMetaAction<EntityId>): Generator {
   try {
     const data = yield call(apiCaller, params.meta.method, params.meta.route);
-    yield put({ type: UserActionTypes.FETCH_ONE.SUCCESS, payload: data });
+    yield put({ type: UserActionTypes.FETCH_BY_ID.SUCCESS, payload: data });
   } catch (err) {
     if (err instanceof Error) {
       const { message } = err;
       yield put({
-        type: UserActionTypes.FETCH_ONE.ERROR,
+        type: UserActionTypes.FETCH_BY_ID.ERROR,
         payload: message,
       });
     } else {
       yield put({
-        type: UserActionTypes.FETCH_ONE.ERROR,
+        type: UserActionTypes.FETCH_BY_ID.ERROR,
         payload: 'An unknown error occured.',
       });
     }
@@ -65,7 +65,7 @@ function* watchFetchRequest(): Generator {
 }
 
 function* watchFetchByIdRequest(): Generator {
-  yield takeEvery(UserActionTypes.FETCH_ONE.START, handleFetchById);
+  yield takeEvery(UserActionTypes.FETCH_BY_ID.START, handleFetchById);
 }
 
 /**

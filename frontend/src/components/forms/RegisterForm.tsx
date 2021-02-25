@@ -11,7 +11,7 @@ interface IProps {
 /**
  * Registration form used to register new users.
  */
-const RegisterForm: React.FC<IProps> = ({register}: IProps) => {
+const RegisterForm: React.FC<IProps> = ({ register }: IProps) => {
   const [form] = Form.useForm();
 
   return (
@@ -28,7 +28,13 @@ const RegisterForm: React.FC<IProps> = ({register}: IProps) => {
       <Form.Item name='last_name' rules={[{ required: true, message: FormMessage.LAST_NAME.REQUIRED }]}>
         <Input placeholder={FormMessage.LAST_NAME.LABEL} />
       </Form.Item>
-      <Form.Item name='password' rules={[{ required: true, message: FormMessage.PASSWORD.REQUIRED }, {min: 8, message: FormMessage.PASSWORD.LENGTH}]}>
+      <Form.Item
+        name='password'
+        rules={[
+          { required: true, message: FormMessage.PASSWORD.REQUIRED },
+          { min: 8, message: FormMessage.PASSWORD.LENGTH },
+        ]}
+      >
         <Input.Password type='password' placeholder={FormMessage.PASSWORD.LABEL} />
       </Form.Item>
       <Form.Item

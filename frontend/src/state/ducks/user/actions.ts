@@ -17,7 +17,7 @@ export const fetchUsers = () =>
  * @param id the id of the object to retrieve
  */
 export const fetchUserById = (id: EntityId) =>
-  action(UserActionTypes.FETCH_ONE.START, [], {
+  action(UserActionTypes.FETCH_BY_ID.START, [], {
     method: 'get',
     route: `user/users/${id}/`,
   });

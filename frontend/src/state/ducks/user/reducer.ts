@@ -20,20 +20,20 @@ export const userReducer = (
 ): UserState => {
   switch (action.type) {
     case UserActionTypes.FETCH.START:
-    case UserActionTypes.FETCH_ONE.START: {
+    case UserActionTypes.FETCH_BY_ID.START: {
       return { ...state, loading: true, status: null };
     }
     case UserActionTypes.FETCH.SUCCESS: {
       return { ...state, data: action.payload, loading: false, status: null };
     }
-    case UserActionTypes.FETCH_ONE.SUCCESS: {
+    case UserActionTypes.FETCH_BY_ID.SUCCESS: {
       return { ...state, byId: action.payload, loading: false, status: null };
     }
     case UserActionTypes.SET: {
       return { ...initialState, byId: action.payload, loading: false, status: null };
     }
     case UserActionTypes.FETCH.ERROR:
-    case UserActionTypes.FETCH_ONE.ERROR: {
+    case UserActionTypes.FETCH_BY_ID.ERROR: {
       return {
         ...state,
         loading: false,

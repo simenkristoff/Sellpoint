@@ -27,8 +27,8 @@ function handleResponse(response: Response) {
  * @param {string} path api path
  * @param data data to be sent
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function apiCaller(method: string, path: string, data?: any) {
+
+export default function apiCaller(method: string, path: string, data?: any, handleErrors = true) {
   const authToken: AuthToken | undefined = getToken();
   const requestHeader: HeadersInit = new Headers();
   requestHeader.set('Accept', 'application/json');
@@ -41,6 +41,10 @@ export default function apiCaller(method: string, path: string, data?: any) {
     headers: requestHeader,
     body: data ? JSON.stringify(data) : null,
   })
-    .then(handleResponse)
+    .then(response => {
+      if (handleErrors) {
+        return handleResponse(response);
+      }
+    })
     .catch();
 }

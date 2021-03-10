@@ -38,7 +38,6 @@ export function getToken(): AuthToken | undefined {
   if (!token) return;
   try {
     const decoded: DecodedToken = jwtDecode(token);
-    console.log(decoded);
 
     return {
       ...decoded,

@@ -1,0 +1,11 @@
+.product-list {
+  margin: 1rem 0;
+
+  .header {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    margin-bottom: 1rem;
+    justify-content: flex-end;
+  }
+}

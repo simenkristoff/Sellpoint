@@ -63,6 +63,14 @@ export const ProductFilter: React.FC = () => {
                     </Row>
                 </Col>
                 <Col>
+                    <Row>
+                        <Space>
+                            <div className='product-filter-text'>Område</div>
+                            <Select placeholder='Velg område' style={{ width: 135 }} onChange={handleChange}></Select>
+                        </Space>
+                    </Row>
+                </Col>
+                <Col>
                     <Button type='primary'>Søk</Button>
                 </Col>
                 </Space>

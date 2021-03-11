@@ -5,6 +5,7 @@ import { LoginContainer } from '@/containers/LoginContainer';
 import { RegisterContainer } from './containers/RegisterContainer';
 import { ProductListContainer } from './containers/ProductListContainer';
 import { ProductSingleContainer } from './containers/ProductSingleContainer';
+import { ProductFilter } from './components/ProductFilter';
 
 export const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ export const App: React.FC = () => {
           path='/'
           render={() => (
             <MainLayout>
+              <ProductFilter />
               <ProductListContainer />
             </MainLayout>
           )}

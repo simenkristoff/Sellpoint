@@ -30,7 +30,7 @@ export const userReducer = (
       return { ...state, byId: action.payload, loading: false, status: null };
     }
     case UserActionTypes.SET: {
-      return { ...initialState, byId: action.payload, loading: false, status: null };
+      return { ...state, byId: action.payload, loading: false, status: null };
     }
     case UserActionTypes.FETCH.ERROR:
     case UserActionTypes.FETCH_BY_ID.ERROR: {

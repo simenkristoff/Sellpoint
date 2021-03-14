@@ -1,5 +1,6 @@
 import { PayloadAction, PayloadMetaAction, TypeConstant } from 'typesafe-actions';
-import { AuthState } from './ducks/auth/types';
+import { AdvertState } from './ducks/advert/types';
+import { AuthState, UserPermissions } from './ducks/auth/types';
 import { ProductState } from './ducks/product/types';
 import { UserState } from './ducks/user/types';
 
@@ -47,6 +48,7 @@ export interface IApplicationState {
   auth: AuthState;
   user: UserState;
   product: ProductState;
+  advert: AdvertState;
 }
 
 /**
@@ -111,10 +113,11 @@ export type EncodedToken = string;
 export interface DecodedToken {
   orig_iat: number;
   exp: number;
-  user_id: EntityId;
+  id: EntityId;
   username: string;
   email: string;
   is_superuser: boolean;
+  groups: UserPermissions[];
 }
 
 export interface AuthToken extends DecodedToken {

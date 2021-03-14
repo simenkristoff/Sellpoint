@@ -5,7 +5,7 @@ import { Button, Col, Form, Modal, Row } from 'antd';
 import { Container } from './Container';
 import { ProductCard } from './ProductCard';
 import { Spinner } from './Spinner';
-import { ProductForm } from './forms/ProductForm';
+import { ProductForm } from './forms';
 
 interface IProps {
   products: ProductEntity[];

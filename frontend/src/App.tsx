@@ -1,10 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { MainLayout } from './layout/MainLayout';
-import { LoginContainer } from '@/containers/LoginContainer';
+import { LoginContainer } from './containers/LoginContainer';
 import { RegisterContainer } from './containers/RegisterContainer';
 import { ProductListContainer } from './containers/ProductListContainer';
 import { ProductSingleContainer } from './containers/ProductSingleContainer';
+import { AdvertManagerContainer } from './containers/AdvertManagerContainer';
 
 export const App: React.FC = () => {
   return (
@@ -42,6 +43,14 @@ export const App: React.FC = () => {
           render={() => (
             <MainLayout>
               <ProductSingleContainer />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path='/mine_reklamer'
+          render={() => (
+            <MainLayout>
+              <AdvertManagerContainer />
             </MainLayout>
           )}
         />

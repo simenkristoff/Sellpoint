@@ -3,6 +3,7 @@ import { Form, FormInstance, Input, InputNumber } from 'antd';
 import { ProductEntity } from '@/state/ducks/product/types';
 import { IApplicationState } from '@/state/interface';
 import { useSelector } from 'react-redux';
+import { ImageUpload } from '../ImageUpload';
 
 interface IProps {
   form: FormInstance<any>;
@@ -37,9 +38,11 @@ export const ProductForm: React.FC<IProps> = ({ form, initialValues }: IProps) =
         <InputNumber />
       </Form.Item>
 
-      {/* <Form.Item name='image' label='Image'>
-        <Input type='file'></Input>
-      </Form.Item> */}
+      <Form.Item name='image' label='Produktbilde'>
+        <ImageUpload />
+      </Form.Item>
     </Form>
   );
 };
+
+export default ProductForm;

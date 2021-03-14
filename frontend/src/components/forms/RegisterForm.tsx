@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Form, Input, Space } from 'antd';
+import { Button, Form, Input, Radio, Space } from 'antd';
 import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import { FormMessage } from '@/constants';
-import { RegisterCredentials } from '@/state/interface';
+import { RegisterCredentials, UserPermissions } from '@/state/interface';
 
 interface IProps {
   register: (credentials: RegisterCredentials) => void;
@@ -55,6 +55,19 @@ const RegisterForm: React.FC<IProps> = ({ register }: IProps) => {
         ]}
       >
         <Input.Password type='password' placeholder={FormMessage.CONFIRM_PASSWORD.LABEL} />
+      </Form.Item>
+      <Form.Item
+        label={FormMessage.PERMISSIONS.LABEL}
+        labelCol={{ span: 24 }}
+        name='permissions'
+        rules={[{ required: true, message: FormMessage.PERMISSIONS.REQUIRED }]}
+      >
+        <Radio.Group>
+          <Radio defaultChecked value={UserPermissions.DEFAULT}>
+            Selge og kjøpe produkter
+          </Radio>
+          <Radio value={UserPermissions.ADVERTISER}>Reklamere for egne produkter</Radio>
+        </Radio.Group>
       </Form.Item>
       <Form.Item style={{ textAlign: 'center' }}>
         <Space direction='horizontal'>

@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from '@/assets/img/logo.png';
 import { Nav } from '@/components/Navigation';
-import { LoginOutlined, UserAddOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginOutlined, UserAddOutlined, LogoutOutlined, UserOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { WithAdvertAuth } from '@/hoc';
 
 interface IProps {
   username: string | null;
@@ -19,9 +20,14 @@ export const Header: React.FC<IProps> = ({ username, isLoggedIn, logout }: IProp
         <Nav.List align='right'>
           <Nav.Item to='/'>Hjem</Nav.Item>
           {isLoggedIn && [
-            <Nav.Item icon={<UserOutlined />} key='user'>
+            <Nav.Item to='/profile' icon={<UserOutlined />} key='user'>
               {username}
             </Nav.Item>,
+            <WithAdvertAuth key='adverts'>
+              <Nav.Item to='/mine_reklamer' icon={<AppstoreOutlined />}>
+                Mine reklamer
+              </Nav.Item>
+            </WithAdvertAuth>,
             <Nav.Item icon={<LogoutOutlined />} onClick={() => logout()} key='logout'>
               Logg ut
             </Nav.Item>,

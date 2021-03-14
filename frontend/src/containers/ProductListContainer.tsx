@@ -4,6 +4,7 @@ import { ProductEntity, ProductState } from '@/state/ducks/product/types';
 import { IApplicationState } from '@/state/interface';
 import { createProduct, deleteProduct, fetchProducts } from '@/state/ducks/product/actions';
 import { ProductList } from '@/components/ProductList';
+import { ProductFilter } from '@/components/ProductFilter';
 
 export const ProductListContainer = () => {
   const dispatch = useDispatch();
@@ -42,5 +43,8 @@ export const ProductListContainer = () => {
     closeModal: useCallback(() => closeModal(), []),
   };
 
-  return <ProductList {...stateToProps} {...dispatchToProps} />;
+  return <div>
+    <ProductFilter />
+    <ProductList {...stateToProps} {...dispatchToProps} />
+    </div>;
 };

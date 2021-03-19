@@ -13,7 +13,7 @@ interface filterStateInterface {
 }
 
 const initialFilterState: filterStateInterface = {
-  searchText: 'ubrukt',
+  searchText: '',
 }
 
 export const ProductListContainer = () => {
@@ -40,29 +40,22 @@ export const ProductListContainer = () => {
   const applyFilters = (): ProductEntity[] => {
     const filterKeys = Object.keys(filters)
     return data.filter((product) => {
-      console.log("hello")
       return filterKeys.every((key: string, index: number) => {
-        console.log(key)
-        console.log(filters[key](product))
         return filters[key](product)
       })})
   }
 
   const filterProducts = (changedFields: any, allFields: any) => {
     allFields.forEach((field: any) => {if (field.name == 'searchText') {
-      // filterState[field.name] = field.value
       setFilterState({searchText: field.value});
     }})
-    
-    console.log(filterState);
-    console.log(filters);
   };
 
   const filters: any = {
     searchText: (product: ProductEntity) => product.title.toLowerCase().includes(filterState['searchText'].toLowerCase())
   }
 
-  useEffect(() => {console.log("endring")}, [filters]);
+  useEffect(() => {}, [filters]);
 
   const [form] = Form.useForm();
 

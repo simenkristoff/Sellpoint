@@ -1,7 +1,9 @@
 import React from 'react';
-import { Button, Card, Input, Space, InputNumber, Menu, Dropdown, Checkbox, Select, Row, Col} from 'antd';
+import { Button, Card, Input, Space, InputNumber, Checkbox, Select, Row, Col, Form, FormInstance} from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { ProductEntity } from '@/state/ducks/product/types';
+import { textSpanIntersectsWithTextSpan } from 'typescript';
+import FormItem from 'antd/lib/form/FormItem';
 
 const onSearch = (value: any) => console.log(value);
 
@@ -19,92 +21,88 @@ function handleChange(value: any) {
     console.log(`selected ${value}`);
   }
 
-const menu = (
-  <Menu>
-    <Menu.Item>
-      <p>Kategori 1</p>
-    </Menu.Item>
-    <Menu.Item icon={<DownOutlined />} disabled>
-      <p>Kategori 2</p>
-    </Menu.Item>
-    <Menu.Item disabled>
-      <p>Kategori 3</p>
-    </Menu.Item>
-    <Menu.Item>
-        <p>Kategori 4</p>
-    </Menu.Item>
-  </Menu>
-);
-
 interface IProps {
   products: ProductEntity[];
-  searchText: Input;
+  searchText: string;
   maxPrice: number;
-  newToday: Boolean;
-  category: typeof Select;
-  area: typeof Select;
+  newToday: boolean;
+  category: string;
+  area: string;
 }
 
-function filterProducts() {
-  let searchText = document.getElementById('searchText');
-  let maxPrice = document.getElementById('maxPrice');
-  let newToday = document.getElementById('newToday');
-  let category = document.getElementById('category');
-  let area = document.getElementById('area');
+interface IPropsTest {
+  filterProducts: (changedFields: any, allFields: any) => void;
+  form: FormInstance<any>;
 }
 
-export const ProductFilter: React.FC = () => {
+// function filterProducts() {
+
+// }
+
+export const ProductFilter: React.FC<IPropsTest> = ({filterProducts, form}) => {
+    
     return(
         <div>
             <br/>
+            <Form form={form} onFieldsChange={filterProducts} name='filter-form'>
             <Card title="Filtrer produkter" style={{ width: 1050 }}>
             <Row>
                 <Space size='middle'>
                 <Col>
-                    <Input placeholder="Søketekst" id='searchText'/>
+                <Form.Item name='searchText'>
+                  <Input placeholder='Søketekst'/>
+                </Form.Item>
                 </Col>
                 <Col>
                     <Row>
                         <Space>
-                            <div className='product-filter-text'>Makspris</div>
-                            <InputNumber onChange={onChange} placeholder='123' id='maxPrice'/>
+                          <Form.Item label='Makspris' name='maxPrice'>
+                            <InputNumber placeholder='123'/>
+                          </Form.Item>
                         </Space>
                     </Row>
                 </Col>
                 <Col>
+                  <Form.Item name='newToday'>
                     <Checkbox onChange={onChanged} id='newToday'>Nye i dag</Checkbox>
+                  </Form.Item>
                 </Col>
-                <Col>
+                {/* <Col>
                     <Row>
                         <Space>
-                            <div className='product-filter-text'>Kategori</div>
-                            <Select placeholder='Velg kategori' style={{ width: 135 }} onChange={handleChange} id='category'>
+                          <Form.Item name='category'>
+                            <Select placeholder='Velg kategori' style={{ width: 135 }} onChange={handleChange}>
                               <Option value='clothes'>Klær</Option>
                               <Option value='electronics'>Elektronikk</Option>  
                               <Option value='furniture'>Møbler</Option>
                               <Option value='toys'>Leker</Option>
                             </Select>
+                            </Form.Item>
                         </Space>
                     </Row>
-                </Col>
-                <Col>
+                </Col> */}
+                {/* <Col>
                     <Row>
                         <Space>
-                            <div className='product-filter-text'>Område</div>
-                            <Select placeholder='Velg område' style={{ width: 135 }} onChange={handleChange} id='area'>
+                          <Form.Item name='area'>
+                            <Select placeholder='Velg område' style={{ width: 135 }} onChange={handleChange}>
                               <Option value='oslo'>Oslo</Option>
                               <Option value='trondheim'>Trondheim</Option>
                               <Option value='bergen'>Bergen</Option>
                             </Select>
+                            </Form.Item>
                         </Space>
                     </Row>
-                </Col>
+                </Col> */}
                 <Col>
-                    <Button type='primary' onClick={filterProducts}>Søk</Button>
+                  <Form.Item>
+                    <Button type='primary' htmlType="submit">Søk</Button>
+                  </Form.Item>
                 </Col>
                 </Space>
             </Row>
         </Card>
+        </Form>
         </div>
     )
 }

@@ -1,13 +1,25 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProductEntity, ProductState } from '@/state/ducks/product/types';
 import { IApplicationState } from '@/state/interface';
 import { createProduct, deleteProduct, fetchProducts } from '@/state/ducks/product/actions';
 import { ProductList } from '@/components/ProductList';
 import { ProductFilter } from '@/components/ProductFilter';
+import { Form } from 'antd';
+import { stringify } from 'querystring';
+
+interface filterStateInterface {
+  [key: string]: any;
+}
+
+const initialFilterState: filterStateInterface = {
+  searchText: 'ubrukt',
+}
 
 export const ProductListContainer = () => {
   const dispatch = useDispatch();
+  const [filterState, setFilterState] = useState<filterStateInterface>(initialFilterState);
+  let filterList: ProductEntity[] = []
   const [visible, setVisible] = useState<boolean>(false);
   const { data, loading }: ProductState = useSelector(({ product }: IApplicationState) => product);
   const { isAdmin, isLoggedIn } = useSelector(({ auth }: IApplicationState) => auth);
@@ -25,9 +37,38 @@ export const ProductListContainer = () => {
     setVisible(false);
   };
 
+  const applyFilters = (): ProductEntity[] => {
+    const filterKeys = Object.keys(filters)
+    return data.filter((product) => {
+      console.log("hello")
+      return filterKeys.every((key: string, index: number) => {
+        console.log(key)
+        console.log(filters[key](product))
+        return filters[key](product)
+      })})
+  }
+
+  const filterProducts = (changedFields: any, allFields: any) => {
+    allFields.forEach((field: any) => {if (field.name == 'searchText') {
+      // filterState[field.name] = field.value
+      setFilterState({searchText: field.value});
+    }})
+    
+    console.log(filterState);
+    console.log(filters);
+  };
+
+  const filters: any = {
+    searchText: (product: ProductEntity) => product.title.toLowerCase().includes(filterState['searchText'].toLowerCase())
+  }
+
+  useEffect(() => {console.log("endring")}, [filters]);
+
+  const [form] = Form.useForm();
+
   // Map Redux State to component props
   const stateToProps = {
-    products: data,
+    products: applyFilters(),
     loading,
     isAdmin,
     isLoggedIn,
@@ -44,7 +85,7 @@ export const ProductListContainer = () => {
   };
 
   return <div>
-    <ProductFilter />
+    <ProductFilter filterProducts={filterProducts} form={form}/>
     <ProductList {...stateToProps} {...dispatchToProps} />
     </div>;
 };

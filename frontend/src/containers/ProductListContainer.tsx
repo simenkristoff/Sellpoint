@@ -9,7 +9,7 @@ export const ProductListContainer = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState<boolean>(false);
   const { data, loading }: ProductState = useSelector(({ product }: IApplicationState) => product);
-  const { isAdmin, isLoggedIn } = useSelector(({ auth }: IApplicationState) => auth);
+  const { isAdmin, isLoggedIn, user_id } = useSelector(({ auth }: IApplicationState) => auth);
 
   const handleCreate = (values: any) => {
     dispatch(createProduct(values));
@@ -30,6 +30,7 @@ export const ProductListContainer = () => {
     loading,
     isAdmin,
     isLoggedIn,
+    user_id,
     visible,
   };
 

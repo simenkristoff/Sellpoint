@@ -12,6 +12,7 @@ interface IProps {
   loading: boolean;
   isAdmin: boolean;
   isLoggedIn: boolean;
+  user_id: number | null; 
   visible: boolean;
   fetchProducts: () => void;
   deleteProduct: (product: ProductEntity) => void;
@@ -25,6 +26,7 @@ export const ProductList: React.FC<IProps> = ({
   loading,
   isAdmin,
   isLoggedIn,
+  user_id,
   visible,
   fetchProducts,
   deleteProduct,
@@ -85,7 +87,7 @@ export const ProductList: React.FC<IProps> = ({
           {products.length > 0 &&
             products.map(product => (
               <Col lg={6} md={8} span={24} key={product.id}>
-                <ProductCard product={product} isAdmin={isAdmin} deleteProduct={deleteProduct} />
+                <ProductCard product={product} isAdmin={isAdmin} deleteProduct={deleteProduct} observerID={user_id} />
               </Col>
             ))}
         </Row>

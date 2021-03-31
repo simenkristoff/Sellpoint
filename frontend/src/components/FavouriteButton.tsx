@@ -8,13 +8,18 @@ interface IProps {
 
   /** text to be displayed at mouse hover */
   tooltipText?: string;
+
+  /** displayes pink heart if true */
+  inFavourites: boolean;
 }
 
 export const FavouriteButton: React.FC<IProps> = (props: IProps) => {
+  const color = props.inFavourites ? "#eb2f96" : "lightgrey";
+
   return (
     <Tooltip title={props.tooltipText}>
-      <Button icon={<HeartTwoTone twoToneColor="#eb2f96" style={{ fontSize: '30px' }} />} 
-        style={{ border: 'none', background: 'none' }} onClick={() => console.log("Hællæ")} />
+      <Button icon={<HeartTwoTone twoToneColor={color} style={{ fontSize: '30px' }} />} 
+        style={{ border: 'none', background: 'none' }} onClick={() => props.onClick()} />
     </Tooltip>
   );
 };

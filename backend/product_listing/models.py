@@ -29,6 +29,7 @@ class ProductListing(models.Model):
         choices=CATEGORY_CHOICES, max_length=20, blank=True, null=True)
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
+    favourited_by = models.ManyToManyField(User)
 
     class Meta:
         ordering = ['-upload_date']

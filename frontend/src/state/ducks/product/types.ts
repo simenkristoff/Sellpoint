@@ -22,6 +22,7 @@ export interface ProductEntity extends Entity {
   owner_details: UserEntity;
   upload_date: string;
   image: string;
+  favourited_by: number[];
 }
 
 /**

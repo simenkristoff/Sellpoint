@@ -3,6 +3,7 @@ import moment from 'moment';
 import { ProductEntity } from '@/state/ducks/product/types';
 import { Link } from 'react-router-dom';
 import { DeleteButton } from './DeleteButton';
+import { FavouriteButton } from './FavouriteButton';
 
 interface IProps {
   product: ProductEntity;
@@ -19,6 +20,9 @@ export const ProductCard: React.FC<IProps> = ({ product, isAdmin, deleteProduct 
             <DeleteButton onClick={() => deleteProduct(product)} />
           </span>
         )}
+        <span className='heart'>
+          <FavouriteButton onClick={() => console.log("HEI")} />
+        </span>
         <div className='product-cover'>
           <img src={product.image} alt={product.title} />
         </div>

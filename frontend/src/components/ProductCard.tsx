@@ -53,10 +53,12 @@ export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, de
             <DeleteButton onClick={() => deleteProduct(product)} />
           </span>
         )}
+        {observerID != null && (
         <span className='heart'>
           <FavouriteButton onClick={handleFavouriteButton} 
             tooltipText={favouritesToolTipText} inFavourites={inFavourites} />
         </span>
+        )}
         <div className='product-cover'>
           <img src={product.image} alt={product.title} />
         </div>

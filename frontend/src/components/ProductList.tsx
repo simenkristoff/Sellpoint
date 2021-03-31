@@ -14,6 +14,7 @@ interface IProps {
   isLoggedIn: boolean;
   user_id: number | null; 
   visible: boolean;
+  favourites: boolean;
   fetchProducts: () => void;
   deleteProduct: (product: ProductEntity) => void;
   handleCreate: (values: any) => void;
@@ -28,6 +29,7 @@ export const ProductList: React.FC<IProps> = ({
   isLoggedIn,
   user_id,
   visible,
+  favourites,
   fetchProducts,
   deleteProduct,
   handleCreate,
@@ -77,8 +79,11 @@ export const ProductList: React.FC<IProps> = ({
     return (
       <Container size='default' className='product-list'>
         <div className='header'>
+          {favourites && (
+            <h1 className='title'>Favoritter</h1>
+          )}
           {isLoggedIn && (
-            <Button type='primary' ghost onClick={openModal}>
+            <Button className='create' type='primary' ghost onClick={openModal}>
               Legg til ny annonse
             </Button>
           )}

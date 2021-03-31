@@ -38,6 +38,7 @@ export const ProductListContainer: React.FC<IProps> = ({ favourites }) => {
     isLoggedIn,
     user_id,
     visible,
+    favourites
   };
 
   // Map Redux Actions to component props

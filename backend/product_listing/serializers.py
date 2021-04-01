@@ -1,8 +1,12 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from user.serializers import UserDetailsSerializer
-from .models import ProductListing
+from .models import Category, ProductListing
 
+class CategoriesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
 
 class ProductListingSerializer(serializers.ModelSerializer):
     owner_details = serializers.SerializerMethodField('get_owner')

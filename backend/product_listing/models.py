@@ -1,18 +1,18 @@
-from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.contrib.auth.models import User
-
-CATEGORY_CHOICES = [
-    ('Category name', 'Category name')
-]
+from django.db import models
 
 
 def user_directory_path(instance, filename):
 
     # file will be uploaded to sellpoint/backend/media/user_<id>/product_id_<pk>/<filename>
     return f'user_{instance.owner.id}/{filename}'
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=24, unique=True)
+
+    class Meta:
+        verbose_name_plural = 'categories'
 
 
 class ProductListing(models.Model):
@@ -25,8 +25,6 @@ class ProductListing(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(default=None, blank=True, null=True)
     has_been_sold = models.BooleanField(default=False)
-    category = models.CharField(
-        choices=CATEGORY_CHOICES, max_length=20, blank=True, null=True)
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
 

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'django_q',
     'user.apps.UserConfig',
     'product_listing.apps.ProductListingConfig',
     'advert.apps.AdvertConfig',
@@ -157,3 +158,12 @@ JWT_AUTH = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
+
+Q_CLUSTER = {
+    "name": "backend",
+    "retry": 80,
+    "timeout": 60,
+    "save_limit": 250,
+    "queue_limit": 500,
+    "orm": "default",
+}

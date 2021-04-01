@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { ProductEntity } from '@/state/ducks/product/types';
 
 import { Container } from './Container';
-import { Col, Row, Button, Modal, Form } from 'antd';
+import { Carousel, Col, Row, Button, Modal, Form } from 'antd';
 import { Spinner } from './Spinner';
 import { EntityId } from '@/state/interface';
 import { MailOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
 import { ProductForm } from './forms/ProductForm';
+import { Advert } from './Advert';
+import { pickRandomAd } from '@/utils';
+import { AdsContext } from '@/context';
 
 interface IProps {
   product: ProductEntity | {};
@@ -37,10 +40,11 @@ export const ProductSingle: React.FC<IProps> = ({
   openModal,
   closeModal,
 }: IProps) => {
+  const ads = useContext(AdsContext);
   const [form] = Form.useForm();
   const [isOwner, setIsOwner] = useState<boolean>(false);
   const { productId } = useParams<IParams>();
-  const { title, price, description, has_been_sold, category, owner, owner_details, upload_date, image } = product as ProductEntity;
+  const { title, price, description, has_been_sold, category, owner, owner_details, upload_date, images } = product as ProductEntity;
 
   useEffect(() => {
     fetchProductById(productId);
@@ -89,12 +93,15 @@ export const ProductSingle: React.FC<IProps> = ({
     return (
       <Container size='default' className='product-single'>
         <Row justify='space-between'>
-          <Col span={16} className='product-main'>
-            <div className='image-carousel'>
-              <div className='img-format'>
-                <img src={image} alt={title} />
-              </div>
-            </div>
+          <Col md={16} span={24} className='product-main'>
+            <Carousel className='image-carousel' effect='fade'>
+              {images.length > 0 &&
+                images.map(image => (
+                  <div key={image.image} className='img-format'>
+                    <img src={`http://localhost:8000${image.image}`} alt={`${title}-${image.image}`} />
+                  </div>
+                ))}
+            </Carousel>
 
             <section className='product-details'>
               <header className='header'>
@@ -114,7 +121,7 @@ export const ProductSingle: React.FC<IProps> = ({
               <div className='description' dangerouslySetInnerHTML={{ __html: description ? description : '' }} />
             </section>
           </Col>
-          <Col className='product-sidebar' span={8}>
+          <Col className='product-sidebar' md={8} span={24}>
             <div className='sidebar-inner'>
               {isOwner && (
                 <Button type='primary' size='large' ghost onClick={openModal}>
@@ -141,6 +148,7 @@ export const ProductSingle: React.FC<IProps> = ({
               </a>
             </div>
           </Col>
+          <Advert style={{ paddingTop: '1rem' }} ad={pickRandomAd(ads)} size='large' hasShadow={false} />
           {!_.isEmpty(product) && renderModal()}
         </Row>
       </Container>

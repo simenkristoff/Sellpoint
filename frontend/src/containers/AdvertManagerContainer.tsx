@@ -5,6 +5,7 @@ import { fetchAdvertByUser, updateAdvert, createAdvert, deleteAdvert, setAdvert 
 import { IApplicationState } from '@/state/interface';
 import { useDispatch, useSelector } from 'react-redux';
 import { AdvertEntity } from '@/state/ducks/advert/types';
+import moment from 'moment';
 
 export const AdvertManagerContainer = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,10 @@ export const AdvertManagerContainer = () => {
     dispatch(deleteAdvert(advert));
   };
 
+  const handleRenew = (advert: AdvertEntity) => {
+    dispatch(updateAdvert({ ...advert, created_date: moment().format(), active: true }));
+  };
+
   const handleClose = () => {
     editMode.current = false;
     setVisible(false);
@@ -56,6 +61,7 @@ export const AdvertManagerContainer = () => {
     submit: useCallback((values: AdvertEntity) => handleSubmit(values), []),
     edit: useCallback((values?: AdvertEntity) => handleEdit(values), []),
     remove: useCallback((values: AdvertEntity) => handleRemove(values), []),
+    renew: useCallback((values: AdvertEntity) => handleRenew(values), []),
     close: useCallback(() => handleClose(), []),
   };
 

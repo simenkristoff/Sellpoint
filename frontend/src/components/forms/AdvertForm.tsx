@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input, Slider, Space } from 'antd';
+import { Form, Input, Slider } from 'antd';
 import { IApplicationState } from '@/state/interface';
 import { useDispatch, useSelector } from 'react-redux';
 import { ImageUpload } from '../ImageUpload';
@@ -7,12 +7,11 @@ import { createAdvert } from '@/state/ducks/advert/actions';
 import { FormMessage, ADVERT_PRICE } from '@/constants';
 import { DataFormInterface } from './interface';
 import { AdvertEntity } from '@/state/ducks/advert/types';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, LinkOutlined } from '@ant-design/icons';
 
 export const AdvertForm: React.FC<DataFormInterface<AdvertEntity>> = ({ data, form, editMode }: DataFormInterface<AdvertEntity>) => {
   const dispatch = useDispatch();
   const user = useSelector(({ auth }: IApplicationState) => auth.user_id);
-
   const handleSubmit = (values: any) => {
     dispatch(createAdvert(values));
   };
@@ -49,6 +48,17 @@ export const AdvertForm: React.FC<DataFormInterface<AdvertEntity>> = ({ data, fo
         <Input />
       </Form.Item>
       <Form.Item
+        name={['link']}
+        label={FormMessage.ADVERT_LINK.LABEL}
+        rules={[{ required: true, message: FormMessage.ADVERT_LINK.REQUIRED }]}
+        tooltip={{
+          title: FormMessage.ADVERT_LINK.INFO,
+          icon: <InfoCircleOutlined />,
+        }}
+      >
+        <Input prefix={<LinkOutlined />} type='url' />
+      </Form.Item>
+      <Form.Item
         name='duration'
         label={FormMessage.ADVERT_DURATION.LABEL}
         tooltip={{
@@ -71,18 +81,11 @@ export const AdvertForm: React.FC<DataFormInterface<AdvertEntity>> = ({ data, fo
       </Form.Item>
 
       <Form.Item
-        name='image'
+        name='images'
         label={FormMessage.ADVERT_IMAGE.LABEL}
-        rules={[{ required: true, message: FormMessage.ADVERT_IMAGE.REQUIRED }]}
+        rules={[{ required: !editMode, message: FormMessage.ADVERT_IMAGE.REQUIRED }]}
       >
         <ImageUpload allowMultiple={false} allowCrop />
-      </Form.Item>
-      <Form.Item style={{ textAlign: 'center' }}>
-        <Space direction='horizontal'>
-          <Button type='primary' htmlType='submit' className='register-form-button'>
-            Legg til ny reklame
-          </Button>
-        </Space>
       </Form.Item>
     </Form>
   );

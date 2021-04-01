@@ -1,6 +1,5 @@
-import { BaseState, Entity, EntityId, TMetaAction, TPayloadMetaAction } from '@/state/interface';
+import { BaseState, Entity, EntityId, ImageEntity, TMetaAction, TPayloadMetaAction } from '@/state/interface';
 import { generateAsyncAction } from '@/state/utils';
-import { UserEntity } from '@/state/ducks/user/types';
 
 /**
  * The Advert state extends BaseState
@@ -14,11 +13,13 @@ export type AdvertState = BaseState<AdvertEntity>;
  */
 export interface AdvertEntity extends Entity {
   title: string;
-  image: string;
+  link: string;
   duration: number;
   active: boolean;
+  images: ImageEntity[];
   advertiser: EntityId;
-  date_created: string;
+  created_date: string;
+  expiry_date: string;
 }
 
 /**

@@ -30,9 +30,18 @@ const FormMessage = {
     LABEL: 'Jeg ønsker å',
     REQUIRED: 'Du må velge én av feltene',
   },
+  PRODUCT_IMAGE: {
+    LABEL: 'Bilder av produktet',
+    REQUIRED: 'Vennligst last opp et bilde(r) av produktet ditt',
+  },
   ADVERT_TITLE: {
     LABEL: 'Reklamens navn',
     REQUIRED: 'Fyll inn et navn på reklamen',
+  },
+  ADVERT_LINK: {
+    LABEL: 'Lenke',
+    INFO: 'Velg hvor reklamen skal lede interesserte brukere',
+    REQUIRED: 'Legg ved en lenke for reklamen',
   },
   ADVERT_DURATION: {
     LABEL: 'Reklamens varighet',

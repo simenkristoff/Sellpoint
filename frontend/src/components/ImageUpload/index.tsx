@@ -1,25 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Upload } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { UploadChangeParam, UploadFile, UploadProps } from 'antd/lib/upload/interface';
 import ImgCrop from 'antd-img-crop';
 import { ImagePreview } from './ImagePreview';
+import { ImageUploadInterface, PreviewFile } from './interface';
 
-interface IProps {
-  allowMultiple?: boolean;
-  allowCrop?: boolean;
-  cropAspect?: number;
-  allowPreview?: boolean;
-  value?: File[];
-  onChange?: (value: File[]) => void;
-}
-
-export const ImageUpload: React.FC<IProps> = ({ allowMultiple, allowCrop, cropAspect, value, onChange }: IProps) => {
-  const [files, setFiles] = useState<UploadFile<any>[]>();
+export const ImageUpload: React.FC<ImageUploadInterface> = ({
+  allowMultiple,
+  allowCrop,
+  cropAspect,
+  value,
+  onChange,
+}: ImageUploadInterface) => {
+  const [previewImage, setPreviewImage] = useState<PreviewFile>();
 
   const handleChange = ({ fileList }: UploadChangeParam<UploadFile<any>>) => {
     const fileObjs: File[] = [];
-    setFiles(fileList);
     fileList.forEach(file => {
       if (file.originFileObj) {
         const fileObj = file.originFileObj as File;
@@ -32,15 +29,35 @@ export const ImageUpload: React.FC<IProps> = ({ allowMultiple, allowCrop, cropAs
     }
   };
 
+  const onPreview = async (file: UploadFile<any>) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise(resolve => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj as File);
+        reader.onload = () => resolve(reader.result as string);
+      });
+    }
+    setPreviewImage({ uid: file.uid, url: src as string });
+  };
+
+  const onRemove = (file: UploadFile<any>) => {
+    if (previewImage?.uid === file.uid) {
+      setPreviewImage(undefined);
+    }
+  };
+
   const props: UploadProps = {
     onChange: handleChange,
+    onPreview,
+    onRemove,
     customRequest: ({ onSuccess, file }) => {
       if (file && onSuccess) {
         onSuccess(null, new XMLHttpRequest());
       }
     },
     multiple: allowMultiple,
-    listType: 'picture',
+    listType: 'picture-card',
     accept: 'image/png, image/jpeg',
   };
 
@@ -70,7 +87,7 @@ export const ImageUpload: React.FC<IProps> = ({ allowMultiple, allowCrop, cropAs
 
   return (
     <div className='upload-wrapper'>
-      <ImagePreview allowPreview images={files} />
+      <ImagePreview allowPreview image={previewImage} />
       {render()}
     </div>
   );

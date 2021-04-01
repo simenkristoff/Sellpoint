@@ -4,6 +4,7 @@ import { ProductEntity } from '@/state/ducks/product/types';
 import { IApplicationState } from '@/state/interface';
 import { useSelector } from 'react-redux';
 import { ImageUpload } from '../ImageUpload';
+import { FormMessage } from '@/constants';
 
 interface IProps {
   form: FormInstance<any>;
@@ -38,7 +39,11 @@ export const ProductForm: React.FC<IProps> = ({ form, initialValues }: IProps) =
         <InputNumber />
       </Form.Item>
 
-      <Form.Item name='image' label='Produktbilde'>
+      <Form.Item
+        name='images'
+        label={FormMessage.PRODUCT_IMAGE.LABEL}
+        rules={[{ required: initialValues === undefined, message: FormMessage.PRODUCT_IMAGE.REQUIRED }]}
+      >
         <ImageUpload />
       </Form.Item>
     </Form>

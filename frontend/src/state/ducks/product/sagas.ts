@@ -87,7 +87,7 @@ function* handleCreate(params: TPayloadMetaAction<ProductEntity>): Generator {
  */
 function* handleUpdate(params: TPayloadMetaAction<ProductEntity>): Generator {
   try {
-    const data = yield call(apiCaller, params.meta.method, params.meta.route, params.payload);
+    const data = yield call(multipartApiCaller, params.meta.method, params.meta.route, params.payload);
     yield put({ type: ProductActionTypes.UPDATE.SUCCESS, payload: data });
   } catch (err) {
     if (err instanceof Error) {

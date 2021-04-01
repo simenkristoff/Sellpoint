@@ -1,13 +1,20 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from user.serializers import UserDetailsSerializer
-from .models import ProductListing
+from .models import ProductListing, ProductImage
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ('id', 'image')
 
 
 class ProductListingSerializer(serializers.ModelSerializer):
     owner_details = serializers.SerializerMethodField('get_owner')
     purchaser_username = serializers.SerializerMethodField(
         'get_purchaser_username')
+    images = serializers.SerializerMethodField('get_images')
 
     class Meta:
         model = ProductListing
@@ -37,3 +44,7 @@ class ProductListingSerializer(serializers.ModelSerializer):
                 id=product_listing.purchaser.id).username
             return username
         return None
+
+    def get_images(self, product):
+        images = ProductImage.objects.filter(product=product.id)
+        return ImageSerializer(images, read_only=True, many=True).data

@@ -87,7 +87,8 @@ function* handleFetchByUser(params: TPayloadMetaAction<EntityId>): Generator {
  */
 function* handleCreate(params: TPayloadMetaAction<AdvertEntity>): Generator {
   try {
-    const data = yield call(multipartApiCaller, params.meta.method, params.meta.route, params.payload);
+    const ad: AdvertEntity = { ...params.payload, active: true };
+    const data = yield call(multipartApiCaller, params.meta.method, params.meta.route, ad);
     yield put({ type: AdvertActionTypes.CREATE.SUCCESS, payload: data });
   } catch (err) {
     if (err instanceof Error) {
@@ -111,7 +112,7 @@ function* handleCreate(params: TPayloadMetaAction<AdvertEntity>): Generator {
  */
 function* handleUpdate(params: TPayloadMetaAction<AdvertEntity>): Generator {
   try {
-    const data = yield call(apiCaller, params.meta.method, params.meta.route, params.payload);
+    const data = yield call(multipartApiCaller, params.meta.method, params.meta.route, params.payload);
     yield put({ type: AdvertActionTypes.UPDATE.SUCCESS, payload: data });
   } catch (err) {
     if (err instanceof Error) {

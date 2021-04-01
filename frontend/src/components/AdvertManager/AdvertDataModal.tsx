@@ -20,7 +20,7 @@ export const AdvertDataModal: React.FC<AdvertDataModalInterface> = (props: Adver
   }, [visible]);
 
   const style: React.CSSProperties = {
-    maxWidth: '1200px',
+    maxWidth: '800px',
   };
 
   return (

@@ -11,6 +11,8 @@ interface IProps {
 }
 
 export const ProductCard: React.FC<IProps> = ({ product, isAdmin, deleteProduct }: IProps) => {
+  const cover: string = product.images.length > 0 ? `http://localhost:8000${product.images[0].image}` : '';
+
   return (
     <div className='product-card-wrapper'>
       <article className='product-card'>
@@ -20,7 +22,7 @@ export const ProductCard: React.FC<IProps> = ({ product, isAdmin, deleteProduct 
           </span>
         )}
         <div className='product-cover'>
-          <img src={product.image} alt={product.title} />
+          <img src={cover} alt={product.title} />
         </div>
         <Link to={`/annonser/${product.id}`} className='product-details'>
           <header className='header'>

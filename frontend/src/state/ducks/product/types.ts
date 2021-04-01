@@ -1,4 +1,4 @@
-import { BaseState, Entity, EntityId, TMetaAction, TPayloadMetaAction } from '@/state/interface';
+import { BaseState, Entity, EntityId, ImageEntity, TMetaAction, TPayloadMetaAction } from '@/state/interface';
 import { generateAsyncAction } from '@/state/utils';
 import { UserEntity } from '@/state/ducks/user/types';
 
@@ -21,7 +21,7 @@ export interface ProductEntity extends Entity {
   owner: EntityId;
   owner_details: UserEntity;
   upload_date: string;
-  image: string;
+  images: ImageEntity[];
 }
 
 /**

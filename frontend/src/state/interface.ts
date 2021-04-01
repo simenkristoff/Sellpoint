@@ -20,6 +20,14 @@ export type Entity = {
 };
 
 /**
+ * Interface describing a Image Entity
+ * @interface ImageEntity
+ */
+export interface ImageEntity extends Entity {
+  image: string;
+}
+
+/**
  * Response message from backend
  * @typedef ApiResponse
  */

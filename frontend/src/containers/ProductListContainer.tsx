@@ -6,10 +6,10 @@ import { createProduct, deleteProduct, fetchFavouritesByUserId, fetchProducts } 
 import { ProductList } from '@/components/ProductList';
 
 interface IProps {
-  favourites: boolean;
+  favourites?: boolean;
 }
 
-export const ProductListContainer: React.FC<IProps> = ({ favourites }) => {
+export const ProductListContainer: React.FC<IProps> = ({ favourites=false }) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState<boolean>(false);
   const { data, loading }: ProductState = useSelector(({ product }: IApplicationState) => product);
@@ -43,9 +43,7 @@ export const ProductListContainer: React.FC<IProps> = ({ favourites }) => {
 
   // Map Redux Actions to component props
   const dispatchToProps = {
-    // fetchProducts: useCallback(() => dispatch(fetchProducts()), [dispatch]),
-    // fetchProducts: useCallback(() => dispatch(fetchFavouritesByUserId(1)), [dispatch]),
-    fetchProducts: useCallback(() => dispatch(fetchFunction), [dispatch]),
+    fetchProducts: useCallback(() => dispatch(fetchFunction), [dispatch, favourites]),
     deleteProduct: useCallback((data: ProductEntity) => dispatch(deleteProduct(data)), [dispatch]),
     handleCreate: useCallback((values: any) => handleCreate(values), []),
     openModal: useCallback(() => openModal(), []),

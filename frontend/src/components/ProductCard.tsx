@@ -18,7 +18,7 @@ interface IProps {
 export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, deleteProduct }: IProps) => {
   const dispatch = useDispatch();
   const [inFavourites, setInFavourites] = useState(false);
-  const favouritesToolTipText = inFavourites ? "Remove from favourites" : "Add to favourites";
+  const favouritesToolTipText = inFavourites ? "Fjern fra favoritter" : "Legg til i favoritter";
 
   const handleFavouriteButton = () => {
     setInFavourites(!inFavourites);

@@ -39,7 +39,7 @@ export const ProductList: React.FC<IProps> = ({
   const [form] = Form.useForm();
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [favourites]);
 
   // Render Modal
   const renderModal = () => (

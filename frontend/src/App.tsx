@@ -15,7 +15,7 @@ export const App: React.FC = () => {
           path='/'
           render={() => (
             <MainLayout>
-              <ProductListContainer favourites={false} />
+              <ProductListContainer />
             </MainLayout>
           )}
         />

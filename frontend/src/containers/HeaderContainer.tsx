@@ -11,6 +11,7 @@ export const HeaderContainer = () => {
   const stateToProps = useSelector(({ auth }: IApplicationState) => ({
     username: auth.username,
     isLoggedIn: auth.isLoggedIn,
+    userId: auth.user_id,
   }));
 
   const dispatchToProps = {

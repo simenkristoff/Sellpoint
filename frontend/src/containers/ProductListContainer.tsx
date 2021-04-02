@@ -33,6 +33,8 @@ export const ProductListContainer = () => {
     visible,
   };
 
+// samme her bare delete user og sende til user profile
+
   // Map Redux Actions to component props
   const dispatchToProps = {
     fetchProducts: useCallback(() => dispatch(fetchProducts()), [dispatch]),

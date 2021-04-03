@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Upload } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { UploadChangeParam, UploadFile, UploadProps } from 'antd/lib/upload/interface';
@@ -6,13 +6,7 @@ import ImgCrop from 'antd-img-crop';
 import { ImagePreview } from './ImagePreview';
 import { ImageUploadInterface, PreviewFile } from './interface';
 
-export const ImageUpload: React.FC<ImageUploadInterface> = ({
-  allowMultiple,
-  allowCrop,
-  cropAspect,
-  value,
-  onChange,
-}: ImageUploadInterface) => {
+export const ImageUpload: React.FC<ImageUploadInterface> = ({ allowMultiple, allowCrop, cropAspect, onChange }: ImageUploadInterface) => {
   const [previewImage, setPreviewImage] = useState<PreviewFile>();
 
   const handleChange = ({ fileList }: UploadChangeParam<UploadFile<any>>) => {

@@ -13,6 +13,7 @@ import { ProductForm } from './forms/ProductForm';
 import { Advert } from './Advert';
 import { pickRandomAd } from '@/utils';
 import { AdsContext } from '@/context';
+import { ProductGallery } from './ProductGallery';
 
 interface IProps {
   product: ProductEntity | {};
@@ -94,15 +95,7 @@ export const ProductSingle: React.FC<IProps> = ({
       <Container size='default' className='product-single'>
         <Row justify='space-between'>
           <Col md={16} span={24} className='product-main'>
-            <Carousel className='image-carousel' effect='fade'>
-              {images.length > 0 &&
-                images.map(image => (
-                  <div key={image.image} className='img-format'>
-                    <img src={`http://localhost:8000${image.image}`} alt={`${title}-${image.image}`} />
-                  </div>
-                ))}
-            </Carousel>
-
+            <ProductGallery images={images} />
             <section className='product-details'>
               <header className='header'>
                 <div className='header-sub'>

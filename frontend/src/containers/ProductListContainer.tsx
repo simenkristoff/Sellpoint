@@ -14,6 +14,7 @@ interface filterStateInterface {
 
 const initialFilterState: filterStateInterface = {
   searchText: '',
+  // maxPrice: 9999999,
 }
 
 export const ProductListContainer = () => {
@@ -48,11 +49,15 @@ export const ProductListContainer = () => {
   const filterProducts = (changedFields: any, allFields: any) => {
     allFields.forEach((field: any) => {if (field.name == 'searchText') {
       setFilterState({searchText: field.value});
-    }})
+    }});
+    // allFields.forEach((field: any) => {if (field.name == 'maxPrice') {
+    //  setFilterState({maxPrice: field.value});
+    // }});
   };
 
   const filters: any = {
     searchText: (product: ProductEntity) => product.title.toLowerCase().includes(filterState['searchText'].toLowerCase())
+    // maxPrice: (product: ProductEntity) => product.price <= filterState['maxPrice']
   }
 
   useEffect(() => {}, [filters]);

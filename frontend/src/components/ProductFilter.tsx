@@ -53,7 +53,7 @@ export const ProductFilter: React.FC<IPropsTest> = ({filterProducts, form}) => {
                   <Input placeholder='Søketekst'/>
                 </Form.Item>
                 </Col>
-                <Col>
+                {/* <Col>
                     <Row>
                         <Space>
                           <Form.Item label='Makspris' name='maxPrice'>
@@ -66,7 +66,7 @@ export const ProductFilter: React.FC<IPropsTest> = ({filterProducts, form}) => {
                   <Form.Item name='newToday'>
                     <Checkbox onChange={onChanged} id='newToday'>Nye i dag</Checkbox>
                   </Form.Item>
-                </Col>
+                </Col> */}
                 {/* <Col>
                     <Row>
                         <Space>
@@ -94,11 +94,11 @@ export const ProductFilter: React.FC<IPropsTest> = ({filterProducts, form}) => {
                         </Space>
                     </Row>
                 </Col> */}
-                <Col>
+                {/* <Col>
                   <Form.Item>
                     <Button type='primary' htmlType="submit">Søk</Button>
                   </Form.Item>
-                </Col>
+                </Col> */}
                 </Space>
             </Row>
         </Card>

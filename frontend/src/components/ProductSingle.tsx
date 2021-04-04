@@ -109,7 +109,7 @@ export const ProductSingle: React.FC<IProps> = ({
                 </div>
                 <h1 className='product-title'>{title}</h1>
                 <h2 className='price'>{`${price} kr`}</h2>
-                <h5>Kategori: {category}</h5>
+                {category != null && <h5>Kategori: {category}</h5>}
               </header>
 
               <div className='description' dangerouslySetInnerHTML={{ __html: description ? description : '' }} />

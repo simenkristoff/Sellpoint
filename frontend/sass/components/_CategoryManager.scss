@@ -1,0 +1,21 @@
+.category-manager {
+  display: block;
+  margin-top: 20px;
+  width: 45%;
+  height: 50%;
+  padding: 0.5rem;
+  border: 2px solid theme(primary);
+  border-radius: 8px;
+  background-color: theme(bg-gray);
+  text-align: center;
+
+  h3 {
+    padding: auto;
+  }
+
+  Form {
+    width: fit-content;
+    margin: auto;
+    padding: 0.25rem;
+  }
+}

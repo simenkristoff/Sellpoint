@@ -20,6 +20,8 @@ class ProductListing(models.Model):
         User, on_delete=models.CASCADE, related_name="ownerID")
     purchaser = models.ForeignKey(
         User, null=True, blank=True, on_delete=models.SET_NULL, related_name="purchaserID")
+    category = models.ForeignKey(
+        Category, blank=True, null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(auto_now_add=True)
     price = models.IntegerField()
     title = models.CharField(max_length=50)

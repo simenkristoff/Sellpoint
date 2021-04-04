@@ -47,7 +47,7 @@ export const CategoryManager: React.FC = () => {
   ];
 
   return (
-    <div>
+    <div className='category-manager'>
       <h3>Legg til kategori</h3>
       <Form onFinish={handleAddCategory} layout='inline' requiredMark='optional'>
         <Form.Item
@@ -67,7 +67,6 @@ export const CategoryManager: React.FC = () => {
         </Form.Item>
       </Form>
 
-      <h3>Kategorier</h3>
       <Table dataSource={data} columns={columns} />
     </div>
   );

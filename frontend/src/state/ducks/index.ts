@@ -9,12 +9,14 @@ import { auth, authSaga } from './auth';
 import { category, categorySaga } from './category';
 import { user, userSaga } from './user';
 import { product, productSaga } from './product';
+import { advert, advertSaga } from './advert';
 
 const reducers = {
   auth,
   category,
   user,
   product,
+  advert,
 };
 
 export const rootReducer = combineReducers<IApplicationState>({
@@ -30,5 +32,5 @@ export const configStorage = {
 export const persistentReducer = persistReducer(configStorage, rootReducer);
 
 export function* rootSaga() {
-  yield all([fork(authSaga), fork(categorySaga), fork(userSaga), fork(productSaga)]);
+  yield all([fork(authSaga), fork(categorySaga), fork(userSaga), fork(productSaga), fork(advertSaga)]);
 }

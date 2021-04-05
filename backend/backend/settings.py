@@ -44,9 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-
+    'django_q',
     'user.apps.UserConfig',
     'product_listing.apps.ProductListingConfig',
+    'advert.apps.AdvertConfig',
 ]
 
 MIDDLEWARE = [
@@ -139,9 +140,11 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ],
-    # 'DEFAULT_PARSER_CLASSES': [
-    #     'rest_framework.parsers.JSONParser',
-    # ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser'
+    ],
 }
 
 JWT_AUTH = {
@@ -155,3 +158,12 @@ JWT_AUTH = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
+
+Q_CLUSTER = {
+    "name": "backend",
+    "retry": 80,
+    "timeout": 60,
+    "save_limit": 250,
+    "queue_limit": 500,
+    "orm": "default",
+}

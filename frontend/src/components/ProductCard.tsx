@@ -18,12 +18,12 @@ interface IProps {
 export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, deleteProduct }: IProps) => {
   const dispatch = useDispatch();
   const [inFavourites, setInFavourites] = useState(false);
-  const favouritesToolTipText = inFavourites ? "Fjern fra favoritter" : "Legg til i favoritter";
-
+  const favouritesToolTipText = inFavourites ? 'Fjern fra favoritter' : 'Legg til i favoritter';
+  const cover: string = product.images.length > 0 ? `http://localhost:8000${product.images[0].image}` : '';
   const handleFavouriteButton = (e: React.MouseEvent<HTMLElement, MouseEvent> | undefined) => {
     e?.preventDefault();
     setInFavourites(!inFavourites);
-    
+
     if (observerID != null) {
       if (!product.favourited_by.includes(observerID)) {
         product.favourited_by = [...product.favourited_by, observerID];
@@ -35,17 +35,17 @@ export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, de
           }
         }
       }
-      
+
       dispatch(updateProduct(product));
     }
-  }
+  };
 
   useEffect(() => {
     if (observerID != null && product.favourited_by.includes(observerID)) {
       setInFavourites(true);
     }
-  }, [])
-  
+  }, []);
+
   return (
     <div className='product-card-wrapper'>
       <article className='product-card'>
@@ -55,13 +55,12 @@ export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, de
           </span>
         )}
         {observerID != null && (
-        <span className='heart'>
-          <FavouriteButton onClick={e => handleFavouriteButton(e)} 
-            tooltipText={favouritesToolTipText} inFavourites={inFavourites} />
-        </span>
+          <span className='heart'>
+            <FavouriteButton onClick={e => handleFavouriteButton(e)} tooltipText={favouritesToolTipText} inFavourites={inFavourites} />
+          </span>
         )}
         <div className='product-cover'>
-          <img src={product.image} alt={product.title} />
+          <img src={cover} alt={product.title} />
         </div>
         <Link to={`/annonser/${product.id}`} className='product-details'>
           <header className='header'>

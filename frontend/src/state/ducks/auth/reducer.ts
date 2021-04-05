@@ -16,6 +16,7 @@ export const loggetOutState: AuthState = {
   username: null,
   email: null,
   isAdmin: false,
+  permissions: [],
   token: null,
   isLoggedIn: false,
   loading: false,
@@ -28,10 +29,11 @@ export const loggetOutState: AuthState = {
  */
 export const initialState: AuthState = currentUser
   ? {
-      user_id: currentUser.user_id,
+      user_id: currentUser.id,
       username: currentUser.username,
       email: currentUser.email,
       isAdmin: currentUser.is_superuser,
+      permissions: currentUser.groups,
       token: currentUser.token,
       isLoggedIn: true,
       loading: false,
@@ -56,6 +58,7 @@ export const authReducer = (
         username: action.payload.username,
         email: action.payload.email,
         isAdmin: action.payload.is_superuser,
+        permissions: action.payload.groups,
         token: action.payload.token,
         isLoggedIn: true,
         loading: false,

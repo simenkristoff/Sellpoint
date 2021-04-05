@@ -1,7 +1,7 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 
 import { EntityId, TMetaAction, TPayloadMetaAction } from '@/state/interface';
-import apiCaller from '@/state/utils/apiCaller';
+import apiCaller, { multipartApiCaller } from '@/state/utils/apiCaller';
 
 import { ProductActionTypes, ProductEntity } from './types';
 
@@ -63,7 +63,7 @@ function* handleFetchById(params: TPayloadMetaAction<EntityId>): Generator {
  */
 function* handleCreate(params: TPayloadMetaAction<ProductEntity>): Generator {
   try {
-    const data = yield call(apiCaller, params.meta.method, params.meta.route, params.payload);
+    const data = yield call(multipartApiCaller, params.meta.method, params.meta.route, params.payload);
     yield put({ type: ProductActionTypes.CREATE.SUCCESS, payload: data });
   } catch (err) {
     if (err instanceof Error) {
@@ -87,7 +87,7 @@ function* handleCreate(params: TPayloadMetaAction<ProductEntity>): Generator {
  */
 function* handleUpdate(params: TPayloadMetaAction<ProductEntity>): Generator {
   try {
-    const data = yield call(apiCaller, params.meta.method, params.meta.route, params.payload);
+    const data = yield call(multipartApiCaller, params.meta.method, params.meta.route, params.payload);
     yield put({ type: ProductActionTypes.UPDATE.SUCCESS, payload: data });
   } catch (err) {
     if (err instanceof Error) {

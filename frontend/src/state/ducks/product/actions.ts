@@ -37,15 +37,11 @@ export const fetchProductById = (id: EntityId | string) =>
  * Create a new Product.
  * @param {ProductEntity} data the Product to create.
  */
-export const createProduct = (data: ProductEntity) => {
-  const formData = new FormData();
-  //formData.append('image', file, path + '/' + file.name);
-
-  return action(ProductActionTypes.CREATE.START, data, {
+export const createProduct = (data: ProductEntity) =>
+  action(ProductActionTypes.CREATE.START, data, {
     method: 'post',
     route: 'product/products/',
   });
-};
 
 /**
  * Update a Product.

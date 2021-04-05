@@ -10,10 +10,18 @@ export interface AuthState {
   readonly username: string | null;
   readonly email: string | null;
   readonly isAdmin: boolean;
+  readonly permissions: UserPermissions[];
   readonly token: EncodedToken | null;
   readonly isLoggedIn: boolean;
   readonly loading: boolean;
   readonly status: ApiResponse | null;
+}
+
+/** The user permissions */
+export enum UserPermissions {
+  'DEFAULT' = 'default',
+  'ADVERTISER' = 'advertiser',
+  'ADMIN' = 'admin',
 }
 
 /**
@@ -32,6 +40,7 @@ export interface RegisterCredentials {
   last_name: string;
   password: string;
   password2: string;
+  permissions: UserPermissions[];
 }
 
 export const AuthActionTypes = {

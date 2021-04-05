@@ -3,7 +3,6 @@ from django.db import models
 
 
 def user_directory_path(instance, filename):
-
     # file will be uploaded to sellpoint/backend/media/user_<id>/product_id_<pk>/<filename>
     return f'user_{instance.owner.id}/{filename}'
 
@@ -31,9 +30,15 @@ class ProductListing(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(default=None, blank=True, null=True)
     has_been_sold = models.BooleanField(default=False)
-    image = models.ImageField(
-        upload_to=user_directory_path, blank=True, null=True)
     favourited_by = models.ManyToManyField(User, blank=True)
+    category = models.CharField(
+        choices=CATEGORY_CHOICES, max_length=20, blank=True, null=True)
 
     class Meta:
         ordering = ['-upload_date']
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(
+        ProductListing, default=None, on_delete=models.CASCADE)
+    image = models.FileField(upload_to='images/')

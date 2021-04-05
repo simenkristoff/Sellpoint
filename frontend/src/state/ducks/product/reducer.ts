@@ -58,7 +58,7 @@ export const productReducer = (
       };
     }
     case ProductActionTypes.SET: {
-      return { ...initialState, byId: action.payload, loading: false, status: null };
+      return { ...state, byId: action.payload, loading: false, status: null };
     }
     case ProductActionTypes.FETCH.ERROR:
     case ProductActionTypes.FETCH_BY_ID.ERROR:

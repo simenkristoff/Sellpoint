@@ -1,8 +1,9 @@
-import React from 'react';
-import { Form, FormInstance, Input, InputNumber } from 'antd';
+import React, { useEffect } from 'react';
+import { Form, FormInstance, Input, InputNumber, Select } from 'antd';
 import { ProductEntity } from '@/state/ducks/product/types';
 import { IApplicationState } from '@/state/interface';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories } from '@/state/ducks/category/actions';
 
 interface IProps {
   form: FormInstance<any>;
@@ -11,6 +12,19 @@ interface IProps {
 
 export const ProductForm: React.FC<IProps> = ({ form, initialValues }: IProps) => {
   const owner = useSelector(({ auth }: IApplicationState) => auth.user_id);
+
+  const dispatch = useDispatch();
+
+  const { data } = useSelector(({ category }: IApplicationState) => category);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, []);
+
+  const categoryOptions = () =>
+    data.map(value => {
+      return { label: value.name, value: value.name };
+    });
 
   return (
     <Form
@@ -29,6 +43,9 @@ export const ProductForm: React.FC<IProps> = ({ form, initialValues }: IProps) =
       </Form.Item>
       <Form.Item name='title' label='Overskrift' rules={[{ required: true }]}>
         <Input />
+      </Form.Item>
+      <Form.Item name='category' label='Kategori'>
+        <Select options={categoryOptions()} placeholder='Velg kategori' showSearch />
       </Form.Item>
       <Form.Item name='description' label='Produktbeskrivelse' initialValue={null}>
         <Input.TextArea />

@@ -10,6 +10,7 @@ import { Spinner } from './Spinner';
 import { EntityId } from '@/state/interface';
 import { MailOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
 import { ProductForm } from './forms/ProductForm';
+import { fetchUserById, fetchUsers } from '@/state/ducks/user/actions';
 
 interface IProps {
   product: ProductEntity | {};
@@ -109,6 +110,7 @@ export const ProductSingle: React.FC<IProps> = ({
                 </div>
                 <h1 className='product-title'>{title}</h1>
                 <h2 className='price'>{`${price} kr`}</h2>
+                {category != null && <h5>Kategori: {category}</h5>}
               </header>
 
               <div className='description' dangerouslySetInnerHTML={{ __html: description ? description : '' }} />

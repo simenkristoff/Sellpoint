@@ -17,11 +17,12 @@ export interface ProductEntity extends Entity {
   price: number;
   description: string | null;
   has_been_sold: boolean;
-  category?: string[];
+  category?: string;
   owner: EntityId;
   owner_details: UserEntity;
   upload_date: string;
   image: string;
+  favourited_by: number[];
 }
 
 /**

@@ -12,6 +12,7 @@ export const HeaderContainer = () => {
     username: auth.username,
     isLoggedIn: auth.isLoggedIn,
     userId: auth.user_id,
+    isAdmin: auth.isAdmin,
   }));
 
   const dispatchToProps = {

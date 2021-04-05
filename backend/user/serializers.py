@@ -3,6 +3,7 @@ from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+import django.core as core
 
 
 class UserDetailsSerializer(serializers.ModelSerializer):
@@ -12,11 +13,15 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    favourites = serializers.SerializerMethodField('get_favourites')
+
+    def get_favourites(self, obj):
+        return obj.productlisting_set.all().values()
 
     class Meta:
         model = User
         fields = ('id', 'username', 'email',
-                  'is_superuser', 'first_name', 'last_name')
+                  'is_superuser', 'first_name', 'last_name', 'favourites')
 
 
 class RegisterSerializer(serializers.ModelSerializer):

@@ -1,10 +1,10 @@
 import { Action, TypeConstant, PayloadAction } from 'typesafe-actions';
 
-import { ProductActionTypes, ProductEntity, ProductState } from './types';
+import { CategoryActionTypes, CategoryEntity, CategoryState } from './types';
 
 import { updateObjectInArray, deleteObjectInArray } from '@/state/utils';
 
-export const initialState: ProductState = {
+export const initialState: CategoryState = {
   byId: {},
   data: [],
   loading: false,
@@ -12,66 +12,63 @@ export const initialState: ProductState = {
 };
 
 /**
- * Reducer actions for Products.
- * @param {ProductState} state the initial state.
+ * Reducer actions for Categorys.
+ * @param {CategoryState} state the initial state.
  * @param {Action<TypeConstant> & PayloadAction<TypeConstant, any>} action the action and state params to set.
  */
-export const productReducer = (
-  state: ProductState = initialState,
+export const categoryReducer = (
+  state: CategoryState = initialState,
   action: Action<TypeConstant> & PayloadAction<TypeConstant, any>,
-): ProductState => {
+): CategoryState => {
   switch (action.type) {
-    case ProductActionTypes.FETCH.START:
-    case ProductActionTypes.FETCH_BY_ID.START:
-    case ProductActionTypes.CREATE.START:
-    // case ProductActionTypes.UPDATE.START:
-    case ProductActionTypes.DELETE.START: {
+    case CategoryActionTypes.FETCH.START:
+    case CategoryActionTypes.FETCH_BY_ID.START:
+    case CategoryActionTypes.CREATE.START:
+    case CategoryActionTypes.UPDATE.START:
+    case CategoryActionTypes.DELETE.START: {
       return { ...state, loading: true, status: null };
     }
-    case ProductActionTypes.UPDATE.START: {
-      return {...state, status:null}
-    }
-    case ProductActionTypes.FETCH.SUCCESS: {
+    case CategoryActionTypes.FETCH.SUCCESS: {
       return { ...initialState, data: action.payload, loading: false, status: null };
     }
-    case ProductActionTypes.FETCH_BY_ID.SUCCESS: {
+    case CategoryActionTypes.FETCH_BY_ID.SUCCESS: {
       return { ...state, byId: action.payload, loading: false, status: null };
     }
-    case ProductActionTypes.CREATE.SUCCESS: {
+    case CategoryActionTypes.CREATE.SUCCESS: {
       return { ...state, data: [...state.data, action.payload], loading: false, status: null };
     }
-    case ProductActionTypes.UPDATE.SUCCESS: {
+    case CategoryActionTypes.UPDATE.SUCCESS: {
       return {
         ...state,
         byId: action.payload,
-        data: updateObjectInArray<ProductEntity>(state.data, action),
+        data: updateObjectInArray<CategoryEntity>(state.data, action),
         loading: false,
         status: null,
       };
     }
-    case ProductActionTypes.DELETE.SUCCESS: {
+    case CategoryActionTypes.DELETE.SUCCESS: {
       return {
         ...state,
-        data: deleteObjectInArray<ProductEntity>(state.data, action),
+        data: deleteObjectInArray<CategoryEntity>(state.data, action),
         loading: false,
         status: null,
       };
     }
-    case ProductActionTypes.SET: {
+    case CategoryActionTypes.SET: {
       return { ...initialState, byId: action.payload, loading: false, status: null };
     }
-    case ProductActionTypes.FETCH.ERROR:
-    case ProductActionTypes.FETCH_BY_ID.ERROR:
-    case ProductActionTypes.CREATE.ERROR:
-    case ProductActionTypes.UPDATE.ERROR:
-    case ProductActionTypes.DELETE.ERROR: {
+    case CategoryActionTypes.FETCH.ERROR:
+    case CategoryActionTypes.FETCH_BY_ID.ERROR:
+    case CategoryActionTypes.CREATE.ERROR:
+    case CategoryActionTypes.UPDATE.ERROR:
+    case CategoryActionTypes.DELETE.ERROR: {
       return {
         ...state,
         loading: false,
         status: action.payload,
       };
     }
-    case ProductActionTypes.CLEAR:
+    case CategoryActionTypes.CLEAR:
       return {
         ...state,
         loading: false,

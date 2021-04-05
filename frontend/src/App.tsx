@@ -6,6 +6,7 @@ import { RegisterContainer } from './containers/RegisterContainer';
 import { ProductListContainer } from './containers/ProductListContainer';
 import { ProductSingleContainer } from './containers/ProductSingleContainer';
 import { ProfileContainer } from './containers/ProfileContainer';
+import { AdminToolsContainer } from './containers/AdminToolsContainer';
 
 export const App: React.FC = () => {
   return (
@@ -17,6 +18,15 @@ export const App: React.FC = () => {
           render={() => (
             <MainLayout>
               <ProductListContainer />
+            </MainLayout>
+          )}
+        />
+        <Route
+          exact
+          path='/favoritter'
+          render={() => (
+            <MainLayout>
+              <ProductListContainer favourites={true} />
             </MainLayout>
           )}
         />
@@ -47,7 +57,15 @@ export const App: React.FC = () => {
           )}
         />
         <Route
-        //legger til min side, må også hente fra components
+          path='/adminverktoy'
+          render={() => (
+            <MainLayout>
+              <AdminToolsContainer />
+            </MainLayout>
+          )}
+        />
+        <Route
+          //legger til min side, må også hente fra components
           path='/minside/:userId'
           render={() => (
             <MainLayout>

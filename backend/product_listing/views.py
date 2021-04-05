@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, parsers
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
@@ -12,6 +12,7 @@ class ProductListingViewSet(viewsets.ModelViewSet):
     """
     serializer_class = ProductListingSerializer
     queryset = ProductListing.objects.all()
+    parser_classes = (parsers.MultiPartParser, parsers.JSONParser)
     permission_classes = [
         permissions.AllowAny
     ]
@@ -31,12 +32,28 @@ class ProductListingViewSet(viewsets.ModelViewSet):
         request.data._mutable = True
         partial = True
         # Create each ProductImage
+        images = request.data.getlist("images")
+        productImages = ProductImage.objects.filter(
+            product=self.get_object())
+        originalImages = []
+        imagesToUpload = []
+        for image in images:
+            if(type(image) != str):
+                filename = "images/"+image.name
+                originalImages.append(filename)
+                existingImg = ProductImage.objects.filter(
+                    product=self.get_object()).filter(image__exact=filename)
+                if len(existingImg) == 0:
+                    imagesToUpload.append(image)
 
-        images = request.data.pop("images")
-        if(len(images) > 0 and type(images[0]) != str):
-            for image in images:
-                ProductImage.objects.create(
-                    product=self.get_object(), image=image)
+        # Delete removed images, if any
+        ProductImage.objects.filter(
+            product=self.get_object()).exclude(image__in=originalImages).delete()
+
+        # Add new images, if any
+        for image in imagesToUpload:
+            ProductImage.objects.create(
+                product=self.get_object(), image=image)
 
         serializer = self.get_serializer(
             self.get_object(), data=request.data, partial=partial)

@@ -65,11 +65,18 @@ export function multipartApiCaller(method: string, path: string, data?: any, han
 
   const formData = new FormData();
   for (const key in data) {
-    if (Array.isArray(data[key]) && data[key][0] instanceof File) {
-      const fileList: File[] = data[key];
-      fileList.forEach(file => {
-        formData.append(key, file);
-      });
+    if (Array.isArray(data[key])) {
+      if (data[key][0] instanceof File) {
+        const fileList: File[] = data[key];
+        fileList.forEach(file => {
+          formData.append(key, file);
+        });
+      } else {
+        const arr: Array<any> = data[key];
+        arr.forEach(item => {
+          formData.append(key, JSON.stringify(item));
+        });
+      }
     } else {
       formData.append(key, data[key]);
     }

@@ -16,7 +16,7 @@ export const ProductGallery: React.FC<IProps> = ({ images }: IProps) => {
   const handleNext = () => {
     if (galleryRef !== null) {
       galleryRef.current?.next();
-      if (imageIndex >= images.length - 1) {
+      if (imageIndex > images.length - 2) {
         setImageIndex(0);
       } else {
         setImageIndex(imageIndex + 1);
@@ -28,7 +28,7 @@ export const ProductGallery: React.FC<IProps> = ({ images }: IProps) => {
   const handleBack = () => {
     if (galleryRef !== null) {
       galleryRef.current?.prev();
-      if (imageIndex <= 0) {
+      if (imageIndex < 1) {
         setImageIndex(images.length - 1);
       } else {
         setImageIndex(imageIndex - 1);
@@ -57,8 +57,8 @@ export const ProductGallery: React.FC<IProps> = ({ images }: IProps) => {
       <div className='gallery-inner-wrapper'>
         <Carousel ref={galleryRef} className='product-gallery' dots={false} effect='scrollx'>
           {images.length > 0 &&
-            images.map(image => (
-              <div key={image.image} className='img-slide'>
+            images.map((image, index) => (
+              <div key={index} className='img-slide'>
                 <img src={`http://localhost:8000${image.image}`} alt={`${image.image}`} />
               </div>
             ))}

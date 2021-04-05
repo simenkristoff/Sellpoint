@@ -1,0 +1,19 @@
+.userProfile {
+  position: relative;
+
+  .edit-profile {
+    margin: 0.5rem;
+  }
+  .delete-button {
+    margin: 0.5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .buttons {
+    position: relative;
+  }
+  .user-name {
+    font-size: 200%;
+  }
+}

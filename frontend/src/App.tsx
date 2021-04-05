@@ -5,6 +5,7 @@ import { LoginContainer } from '@/containers/LoginContainer';
 import { RegisterContainer } from './containers/RegisterContainer';
 import { ProductListContainer } from './containers/ProductListContainer';
 import { ProductSingleContainer } from './containers/ProductSingleContainer';
+import { ProfileContainer } from './containers/ProfileContainer';
 import { AdminToolsContainer } from './containers/AdminToolsContainer';
 
 export const App: React.FC = () => {
@@ -60,6 +61,15 @@ export const App: React.FC = () => {
           render={() => (
             <MainLayout>
               <AdminToolsContainer />
+            </MainLayout>
+          )}
+        />
+        <Route
+          //legger til min side, må også hente fra components
+          path='/minside/:userId'
+          render={() => (
+            <MainLayout>
+              <ProfileContainer />
             </MainLayout>
           )}
         />

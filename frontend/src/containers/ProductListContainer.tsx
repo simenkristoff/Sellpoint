@@ -81,6 +81,8 @@ export const ProductListContainer: React.FC<IProps> = ({ favourites=false }) => 
     favourites
   };
 
+// samme her bare delete user og sende til user profile
+
   // Map Redux Actions to component props
   const dispatchToProps = {
     fetchProducts: useCallback(() => dispatch(fetchFunction), [dispatch, favourites]),

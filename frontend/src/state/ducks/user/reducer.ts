@@ -1,6 +1,7 @@
+import { deleteObjectInArray, updateObjectInArray } from '@/state/utils';
 import { Action, TypeConstant, PayloadAction } from 'typesafe-actions';
 
-import { UserActionTypes, UserState } from './types';
+import { UserActionTypes, UserEntity, UserState } from './types';
 
 export const initialState: UserState = {
   byId: {},
@@ -20,6 +21,7 @@ export const userReducer = (
 ): UserState => {
   switch (action.type) {
     case UserActionTypes.FETCH.START:
+    case UserActionTypes.DELETE.START:
     case UserActionTypes.FETCH_BY_ID.START: {
       return { ...state, loading: true, status: null };
     }
@@ -29,10 +31,32 @@ export const userReducer = (
     case UserActionTypes.FETCH_BY_ID.SUCCESS: {
       return { ...state, byId: action.payload, loading: false, status: null };
     }
+
+    case UserActionTypes.DELETE.SUCCESS: {
+      return {
+        ...state,
+        data: deleteObjectInArray<UserEntity>(state.data, action),
+        loading: false,
+        status: null,
+      };
+    }
+
+    case UserActionTypes.UPDATE.SUCCESS: {
+      return {
+        ...state,
+        byId: action.payload,
+        data: updateObjectInArray<UserEntity>(state.data, action),
+        loading: false,
+        status: null,
+      };
+    }
+
     case UserActionTypes.SET: {
       return { ...initialState, byId: action.payload, loading: false, status: null };
     }
+
     case UserActionTypes.FETCH.ERROR:
+    case UserActionTypes.DELETE.ERROR:
     case UserActionTypes.FETCH_BY_ID.ERROR: {
       return {
         ...state,

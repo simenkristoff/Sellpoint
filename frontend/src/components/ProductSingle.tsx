@@ -131,7 +131,7 @@ export const ProductSingle: React.FC<IProps> = ({
                   <span className='name'>
                     {owner_details.first_name} {owner_details.last_name}
                   </span>
-                  <a className='username' href='/'>
+                  <a className='username' href={`/minside/${owner_details.id}`}>
                     @{owner_details.username}
                   </a>
                 </div>

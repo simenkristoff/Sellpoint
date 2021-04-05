@@ -26,6 +26,8 @@ export const UserActionTypes = {
   FETCH_BY_ID: generateAsyncAction('@@user.FETCH_BY_ID'),
   SET: '@@user.SET',
   CLEAR: '@@user.CLEAR',
+  UPDATE: generateAsyncAction('@@user.UPDATE'),
+  DELETE: generateAsyncAction('@@user.DELETE'),
 };
 
 /**

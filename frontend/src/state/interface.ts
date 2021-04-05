@@ -1,5 +1,6 @@
 import { PayloadAction, PayloadMetaAction, TypeConstant } from 'typesafe-actions';
 import { AuthState } from './ducks/auth/types';
+import { CategoryState } from './ducks/category/types';
 import { ProductState } from './ducks/product/types';
 import { UserState } from './ducks/user/types';
 
@@ -45,6 +46,7 @@ export interface BaseState<T extends Entity> {
  */
 export interface IApplicationState {
   auth: AuthState;
+  category: CategoryState;
   user: UserState;
   product: ProductState;
 }

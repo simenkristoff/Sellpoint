@@ -5,7 +5,7 @@ import { LoginContainer } from '@/containers/LoginContainer';
 import { RegisterContainer } from './containers/RegisterContainer';
 import { ProductListContainer } from './containers/ProductListContainer';
 import { ProductSingleContainer } from './containers/ProductSingleContainer';
-import { ProductFilter } from './components/ProductFilter';
+import { AdminToolsContainer } from './containers/AdminToolsContainer';
 
 export const App: React.FC = () => {
   return (
@@ -43,6 +43,14 @@ export const App: React.FC = () => {
           render={() => (
             <MainLayout>
               <ProductSingleContainer />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path='/adminverktoy'
+          render={() => (
+            <MainLayout>
+              <AdminToolsContainer />
             </MainLayout>
           )}
         />

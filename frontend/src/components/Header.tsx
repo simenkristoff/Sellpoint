@@ -23,6 +23,7 @@ export const Header: React.FC<IProps> = ({ username, isLoggedIn, isAdmin, logout
             <Nav.Item to='/adminverktoy'>Adminverktøy</Nav.Item>
           ]}
           {isLoggedIn && [
+            <Nav.Item to='/favoritter' key='favourites'>Favoritter</Nav.Item>,
             <Nav.Item icon={<UserOutlined />} key='user'>
               {username}
             </Nav.Item>,

@@ -33,6 +33,7 @@ class ProductListing(models.Model):
     has_been_sold = models.BooleanField(default=False)
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
+    favourited_by = models.ManyToManyField(User, blank=True)
 
     class Meta:
         ordering = ['-upload_date']

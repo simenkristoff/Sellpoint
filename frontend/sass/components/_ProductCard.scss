@@ -16,6 +16,12 @@
       right: 0.25rem;
     }
 
+    .heart {
+      position: absolute;
+      top: 0.25rem;
+      left: 0.25rem;
+    }
+
     &:hover {
       border-color: theme(primary);
       transition: 0.3s all cubic-bezier(0.17, 0.67, 0.83, 0.67);
@@ -49,6 +55,7 @@
     > .product-cover {
       height: 100%;
       margin: 0 auto;
+      min-height: 200px;
 
       > img {
         min-width: 100%;

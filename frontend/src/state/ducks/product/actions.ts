@@ -24,6 +24,16 @@ export const fetchProductById = (id: EntityId | string) =>
   });
 
 /**
+ * Fetch a users favourite products by user id.
+ * @param id the id of the user
+ */
+ export const fetchFavouritesByUserId = (id: EntityId | string) =>  
+ action(ProductActionTypes.FETCH.START, [], {
+   method: 'get',
+   route: `product/favourites/${id}`,
+ });
+
+/**
  * Create a new Product.
  * @param {ProductEntity} data the Product to create.
  */

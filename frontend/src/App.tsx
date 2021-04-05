@@ -22,6 +22,15 @@ export const App: React.FC = () => {
         />
         <Route
           exact
+          path='/favoritter'
+          render={() => (
+            <MainLayout>
+              <ProductListContainer favourites={true} />
+            </MainLayout>
+          )}
+        />
+        <Route
+          exact
           path='/registrer'
           render={() => (
             <MainLayout>

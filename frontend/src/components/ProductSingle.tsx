@@ -10,6 +10,7 @@ import { Spinner } from './Spinner';
 import { EntityId } from '@/state/interface';
 import { MailOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
 import { ProductForm } from './forms/ProductForm';
+import { fetchUserById, fetchUsers } from '@/state/ducks/user/actions';
 
 interface IProps {
   product: ProductEntity | {};

@@ -6,18 +6,22 @@ import { LoginOutlined, UserAddOutlined, LogoutOutlined, UserOutlined } from '@a
 interface IProps {
   username: string | null;
   isLoggedIn: boolean;
+  isAdmin: boolean;
   logout: () => void;
 }
 
 /**
  * Header component. Displays the navigation bar and site logo.
  */
-export const Header: React.FC<IProps> = ({ username, isLoggedIn, logout }: IProps) => {
+export const Header: React.FC<IProps> = ({ username, isLoggedIn, isAdmin, logout }: IProps) => {
   return (
     <header className='site-header'>
       <Nav logo={logo}>
         <Nav.List align='right'>
           <Nav.Item to='/'>Hjem</Nav.Item>
+          {isAdmin && [
+            <Nav.Item to='/adminverktoy'>Adminverktøy</Nav.Item>
+          ]}
           {isLoggedIn && [
             <Nav.Item to='/favoritter' key='favourites'>Favoritter</Nav.Item>,
             <Nav.Item icon={<UserOutlined />} key='user'>

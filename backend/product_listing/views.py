@@ -4,9 +4,18 @@ from rest_framework.decorators import action
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
-from .models import ProductListing
-from .serializers import ProductListingSerializer
+from .models import  Category, ProductListing
+from .serializers import CategoriesSerializer, ProductListingSerializer
 
+class CategoriesViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing, editing, creating and deleting categories.
+    """
+    serializer_class = CategoriesSerializer
+    queryset = Category.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
 
 class ProductListingViewSet(viewsets.ModelViewSet):
     """

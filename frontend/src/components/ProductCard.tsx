@@ -71,7 +71,7 @@ export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, de
             <h3 className='product-title'>{product.title}</h3>
           </header>
           <footer className='footer'>
-            <span className='categories'></span>
+            <span className='category'>{product.category}</span>
             <span className='price'>{product.price}kr</span>
           </footer>
         </Link>

@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IApplicationState } from '@/state/interface';
 import { Profile } from '@/components/Profile';
 import { fetchUserById, updateProfile, deleteUser } from '@/state/ducks/user/actions';
-import { UserEntity, UserState } from '@/state/ducks/user/types';
-import { useParams } from 'react-router-dom';
+import { UserState } from '@/state/ducks/user/types';
+import { useHistory, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { user } from '@/state/ducks/user';
+import { logout } from '@/state/ducks/auth/actions';
 
 interface IParams {
   userId: string;
@@ -14,6 +14,7 @@ interface IParams {
 
 export const ProfileContainer = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { userId } = useParams<IParams>();
   const [visible, setVisible] = useState<boolean>(false);
   const { isAdmin, user_id, isLoggedIn } = useSelector(({ auth }: IApplicationState) => auth);
@@ -36,8 +37,11 @@ export const ProfileContainer = () => {
   };
 
   const handleEdit = (values: any) => {
-    dispatch(updateProfile(values));
+    console.log(values);
+    dispatch(updateProfile(user_id, values));
     setVisible(false);
+    dispatch(logout());
+    history.push('/logg_inn');
   };
 
   const openModal = () => {
@@ -48,8 +52,11 @@ export const ProfileContainer = () => {
     setVisible(false);
   };
 
-  const deleteUser = (values: any) => {
+  const deleteUser1 = (values: any) => {
+    console.log('Hei');
     dispatch(deleteUser(values));
+    dispatch(logout());
+    history.push('/');
   };
 
   const dispatchToProps = {
@@ -57,7 +64,7 @@ export const ProfileContainer = () => {
     openModal: useCallback(() => openModal(), []),
     closeModal: useCallback(() => closeModal(), []),
     handleEdit: useCallback((values: any) => handleEdit(values), []),
-    deleteUser: useCallback((values: any) => deleteUser(values), []),
+    deleteUser: useCallback((values: any) => deleteUser1(values), [dispatch]),
   };
 
   return <Profile {...stateToProps} {...dispatchToProps} />;

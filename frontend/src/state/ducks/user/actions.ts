@@ -33,26 +33,23 @@ export const setUser = (data: UserEntity) => action(UserActionTypes.SET, data);
  */
 export const clear = () => action(UserActionTypes.CLEAR);
 
-/** 
+/**
  * Delete a User.
  * @param {UserEntity} data the user instance to delete
-*/
-export const deleteUser = (data: UserEntity) => 
-action(UserActionTypes.DELETE.START, data, {
-  method: 'delete',
-  route: `user/users/${data.id}/`,
-
-});
+ */
+export const deleteUser = (data: UserEntity) =>
+  action(UserActionTypes.DELETE.START, data, {
+    method: 'delete',
+    route: `user/users/${data.id}/`,
+  });
 
 /**
  * Update a User Profile
  *  @param {UserEntity} data the User instance to set.
  */
 
-export const updateProfile = (data: UserEntity) => 
-action(UserActionTypes.UPDATE.START, data, {
-
-  method: 'put',
-  route: `user/users/${data.id}/`,
-
-});
+export const updateProfile = (id: number | null, data: UserEntity) =>
+  action(UserActionTypes.UPDATE.START, data, {
+    method: 'put',
+    route: `user/users/${id}/`,
+  });

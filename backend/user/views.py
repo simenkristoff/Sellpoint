@@ -6,13 +6,14 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from .serializers import UserSerializer, RegisterSerializer
+from .serializers import UserSerializer, RegisterSerializer, UserDetailsSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for listing or retrieving users.
     """
     queryset = User.objects.all()
+    serializer_class = UserDetailsSerializer
 
     def list(self, request):
         queryset = User.objects.all()

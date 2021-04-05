@@ -8,7 +8,7 @@ from .serializers import ProductListingSerializer
 
 class ProductListingViewSet(viewsets.ModelViewSet):
     """
-    A viewset for viewing and editing product listings. 
+    A viewset for viewing and editing product listings.
     """
     serializer_class = ProductListingSerializer
     queryset = ProductListing.objects.all()
@@ -30,10 +30,13 @@ class ProductListingViewSet(viewsets.ModelViewSet):
         # Unify PATCH and PUT
         request.data._mutable = True
         partial = True
-        # Create each PostImage
-        for image in request.data.pop("images"):
-            ProductImage.objects.create(
-                product=self.get_object(), image=image)
+        # Create each ProductImage
+
+        images = request.data.pop("images")
+        if(len(images) > 0 and type(images[0]) != str):
+            for image in images:
+                ProductImage.objects.create(
+                    product=self.get_object(), image=image)
 
         serializer = self.get_serializer(
             self.get_object(), data=request.data, partial=partial)

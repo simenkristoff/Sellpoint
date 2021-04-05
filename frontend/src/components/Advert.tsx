@@ -25,6 +25,7 @@ export const Advert: React.FC<IProps> = ({ ad, style, size, hasShadow, className
     });
   }
   if (hasShadow) imgClasses.push('img-shadow');
+  console.log(ad);
 
   return (
     <a className={classes.join(' ')} style={style} href={ad.link}>

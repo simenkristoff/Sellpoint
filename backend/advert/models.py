@@ -33,6 +33,3 @@ class Advert(models.Model):
 class AdvertImage(models.Model):
     advert = models.ForeignKey(Advert, default=None, on_delete=models.CASCADE)
     image = models.FileField(upload_to='images/')
-
-    def __str__(self):
-        return self.name

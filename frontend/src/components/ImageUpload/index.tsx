@@ -1,22 +1,74 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Upload } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { UploadChangeParam, UploadFile, UploadProps } from 'antd/lib/upload/interface';
 import ImgCrop from 'antd-img-crop';
 import { ImagePreview } from './ImagePreview';
 import { ImageUploadInterface, PreviewFile } from './interface';
+import { ImageEntity } from '@/state/interface';
+import { parseUrlToFile } from '@/utils';
 
-export const ImageUpload: React.FC<ImageUploadInterface> = ({ allowMultiple, allowCrop, cropAspect, onChange }: ImageUploadInterface) => {
+export const ImageUpload: React.FC<ImageUploadInterface> = ({
+  allowMultiple,
+  allowCrop,
+  cropAspect,
+  value,
+  onChange,
+}: ImageUploadInterface) => {
+  const [fileList, setFileList] = useState<UploadFile<File>[]>([]);
   const [previewImage, setPreviewImage] = useState<PreviewFile>();
 
-  const handleChange = ({ fileList }: UploadChangeParam<UploadFile<any>>) => {
+  const loadInitialImages = async () => {
+    const initialFiles: UploadFile<File>[] = [];
+    if (!value) return;
+    for (let i = 0; i < value.length; i++) {
+      const imgFile = await loadImage((value[i] as unknown) as ImageEntity);
+      if (imgFile) initialFiles.push(imgFile);
+    }
+    setFileList(initialFiles);
+  };
+
+  const loadImage = async (img: ImageEntity) => {
+    try {
+      const blob = await fetch(`http://localhost:8000${img.image}`).then(b => b.blob());
+      const file = new File([blob], img.image, { type: 'image/png' });
+
+      const imageFile: UploadFile<File> = {
+        uid: img.id.toString(),
+        size: file.size,
+        name: file.name,
+        lastModified: file.lastModified,
+        url: `http://localhost:8000${img.image}`,
+        type: file.type,
+        originFileObj: file,
+      };
+
+      return imageFile;
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+    loadInitialImages();
+
+    return () => setFileList([]);
+  }, []);
+
+  const handleChange = (event: UploadChangeParam<UploadFile<any>>) => {
     const fileObjs: File[] = [];
-    fileList.forEach(file => {
-      if (file.originFileObj) {
-        const fileObj = file.originFileObj as File;
-        fileObjs.push(fileObj);
-      }
-    });
+    if (allowMultiple) {
+      setFileList([...event.fileList]);
+      event.fileList.forEach(file => {
+        if (file.originFileObj) {
+          const fileObj = file.originFileObj as File;
+          fileObjs.push(fileObj);
+        }
+      });
+    } else {
+      setFileList([event.fileList[event.fileList.length - 1]]);
+      fileObjs.push(event.fileList[event.fileList.length - 1].originFileObj as File);
+    }
 
     if (onChange) {
       onChange(fileObjs);
@@ -50,6 +102,7 @@ export const ImageUpload: React.FC<ImageUploadInterface> = ({ allowMultiple, all
         onSuccess(null, new XMLHttpRequest());
       }
     },
+    fileList: fileList,
     multiple: allowMultiple,
     listType: 'picture-card',
     accept: 'image/png, image/jpeg',

@@ -7,14 +7,10 @@
     flex-flow: row;
     margin-bottom: 1rem;
     justify-content: flex-end;
-    
-    // Kan noen som faktisk kan css fikse dette?? :))
-    // .title {
-    //   justify-content: flex-start;
-    // }
 
-    // .create {
-    //   justify-content: flex-end;
-    // }
+    .title {
+      justify-content: flex-start;
+      flex: 1 1 100%;
+    }
   }
 }

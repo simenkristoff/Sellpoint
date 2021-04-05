@@ -24,9 +24,12 @@ export const productReducer = (
     case ProductActionTypes.FETCH.START:
     case ProductActionTypes.FETCH_BY_ID.START:
     case ProductActionTypes.CREATE.START:
-    case ProductActionTypes.UPDATE.START:
+    // case ProductActionTypes.UPDATE.START:
     case ProductActionTypes.DELETE.START: {
       return { ...state, loading: true, status: null };
+    }
+    case ProductActionTypes.UPDATE.START: {
+      return {...state, status:null}
     }
     case ProductActionTypes.FETCH.SUCCESS: {
       return { ...initialState, data: action.payload, loading: false, status: null };

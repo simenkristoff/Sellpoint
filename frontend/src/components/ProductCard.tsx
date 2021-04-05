@@ -20,7 +20,8 @@ export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, de
   const [inFavourites, setInFavourites] = useState(false);
   const favouritesToolTipText = inFavourites ? "Fjern fra favoritter" : "Legg til i favoritter";
 
-  const handleFavouriteButton = () => {
+  const handleFavouriteButton = (e: React.MouseEvent<HTMLElement, MouseEvent> | undefined) => {
+    e?.preventDefault();
     setInFavourites(!inFavourites);
     
     if (observerID != null) {
@@ -55,7 +56,7 @@ export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, de
         )}
         {observerID != null && (
         <span className='heart'>
-          <FavouriteButton onClick={handleFavouriteButton} 
+          <FavouriteButton onClick={e => handleFavouriteButton(e)} 
             tooltipText={favouritesToolTipText} inFavourites={inFavourites} />
         </span>
         )}

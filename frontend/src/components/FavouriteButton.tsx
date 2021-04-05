@@ -4,7 +4,7 @@ import { Button, Tooltip } from 'antd';
 
 interface IProps {
   /** function to be executed on click */
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLElement> | undefined) => void;
 
   /** text to be displayed at mouse hover */
   tooltipText?: string;
@@ -19,7 +19,7 @@ export const FavouriteButton: React.FC<IProps> = (props: IProps) => {
   return (
     <Tooltip title={props.tooltipText}>
       <Button icon={<HeartTwoTone twoToneColor={color} style={{ fontSize: '30px' }} />} 
-        style={{ border: 'none', background: 'none' }} onClick={() => props.onClick()} />
+        style={{ border: 'none', background: 'none' }} onClick={(e) => props.onClick(e)} />
     </Tooltip>
   );
 };

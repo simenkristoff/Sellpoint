@@ -1,4 +1,4 @@
-from user.serializers import UserSerializer
+from user.serializers import UserSerializer, GroupSerializer
 from datetime import datetime
 from rest_framework_jwt.settings import api_settings
 from calendar import timegm
@@ -10,13 +10,10 @@ def jwt_response_handler(token, user=None, request=None):
         **UserSerializer(user, context={'request': request}).data
     }
 
-def jwt_payload_handler(user):
-    username = user.username
 
+def jwt_payload_handler(user):
     payload = {
-        'user_id': user.pk,
-        'username': username,
-        'is_superuser': user.is_superuser,
+        **UserSerializer(user).data,
         'exp': (datetime.utcnow() + api_settings.JWT_EXPIRATION_DELTA),
     }
 

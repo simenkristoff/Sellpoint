@@ -1,5 +1,5 @@
-import { BaseState, Entity, TMetaAction, TPayloadMetaAction } from "@/state/interface";
-import { generateAsyncAction } from "@/state/utils";
+import { BaseState, Entity, TMetaAction, TPayloadMetaAction } from '@/state/interface';
+import { generateAsyncAction } from '@/state/utils';
 
 export type CategoryState = BaseState<CategoryEntity>;
 
@@ -19,9 +19,9 @@ export const CategoryActionTypes = {
 
 export interface CategoryActions {
   fetchCategorys: () => TMetaAction;
-  createEvent: (category: CategoryEntity) => TPayloadMetaAction<CategoryEntity>;
-  updateEvent: (category: CategoryEntity) => TPayloadMetaAction<CategoryEntity>;
-  deleteEvent: (category: CategoryEntity) => TPayloadMetaAction<CategoryEntity>;
+  createCategory: (category: CategoryEntity) => TPayloadMetaAction<CategoryEntity>;
+  updateCategory: (category: CategoryEntity) => TPayloadMetaAction<CategoryEntity>;
+  deleteCategory: (category: CategoryEntity) => TPayloadMetaAction<CategoryEntity>;
   setCategory: (category: CategoryEntity) => TPayloadMetaAction<CategoryEntity>;
   clear: () => TMetaAction;
 }

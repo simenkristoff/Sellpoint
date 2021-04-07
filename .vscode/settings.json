@@ -33,5 +33,6 @@
     },
     "eslint.workingDirectories": [
         { "directory": "./frontend", "changeProcessCWD": true },
-    ]
+    ],
+    "python.pythonPath": "C:\\Users\\lemol\\AppData\\Local\\Programs\\Python\\Python39\\python.exe"
 }

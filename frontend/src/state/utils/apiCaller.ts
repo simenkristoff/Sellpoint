@@ -48,3 +48,49 @@ export default function apiCaller(method: string, path: string, data?: any, hand
     })
     .catch();
 }
+
+/**
+ * Wrapper function for API requests
+ * @param {string} method http method ['GET', 'POST', 'UPDATE', 'DELETE']
+ * @param {string} path api path
+ * @param data data to be sent
+ */
+
+export function multipartApiCaller(method: string, path: string, data?: any, handleErrors = true) {
+  const authToken: AuthToken | undefined = getToken();
+  const requestHeader: HeadersInit = new Headers();
+  //requestHeader.set('Content-Type', 'multipart/form-data');
+  requestHeader.set('Origin', 'http://localhost:3000');
+  if (authToken) requestHeader.set('Authorization', `Bearer ${authToken.token}`);
+
+  const formData = new FormData();
+  for (const key in data) {
+    if (Array.isArray(data[key])) {
+      if (data[key][0] instanceof File) {
+        const fileList: File[] = data[key];
+        fileList.forEach(file => {
+          formData.append(key, file);
+        });
+      } else {
+        const arr: Array<any> = data[key];
+        arr.forEach(item => {
+          formData.append(key, JSON.stringify(item));
+        });
+      }
+    } else {
+      formData.append(key, data[key]);
+    }
+  }
+
+  return fetch(`${API_URL}/${path}`, {
+    method,
+    headers: requestHeader,
+    body: formData,
+  })
+    .then(response => {
+      if (handleErrors) {
+        return handleResponse(response);
+      }
+    })
+    .catch();
+}

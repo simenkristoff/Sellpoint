@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProductEntity, ProductState } from '@/state/ducks/product/types';
+import { ProductState } from '@/state/ducks/product/types';
 import { IApplicationState } from '@/state/interface';
-import { deleteProduct, fetchProductById, updateProduct } from '@/state/ducks/product/actions';
+import { fetchProductById, updateProduct } from '@/state/ducks/product/actions';
 import { ProductSingle } from '@/components/ProductSingle';
 
 export const ProductSingleContainer = () => {

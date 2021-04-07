@@ -1,6 +1,6 @@
 import { action } from 'typesafe-actions';
 
-import { UserActionTypes, UserEntity } from './types';
+import { RateData, UserActionTypes, UserEntity } from './types';
 import { EntityId } from '@/state/interface';
 
 /**
@@ -16,7 +16,7 @@ export const fetchUsers = () =>
  * Fetch a single User by id.
  * @param id the id of the object to retrieve
  */
-export const fetchUserById = (id: EntityId) =>
+export const fetchUserById = (id: EntityId | string) =>
   action(UserActionTypes.FETCH_BY_ID.START, [], {
     method: 'get',
     route: `user/users/${id}/`,
@@ -32,3 +32,30 @@ export const setUser = (data: UserEntity) => action(UserActionTypes.SET, data);
  * Clears User state
  */
 export const clear = () => action(UserActionTypes.CLEAR);
+
+/**
+ * Delete a User.
+ * @param {UserEntity} data the user instance to delete
+ */
+export const deleteUser = (data: UserEntity) =>
+  action(UserActionTypes.DELETE.START, data, {
+    method: 'delete',
+    route: `user/users/${data.id}/`,
+  });
+
+/**
+ * Update a User Profile
+ *  @param {UserEntity} data the User instance to set.
+ */
+
+export const updateProfile = (id: number | null, data: UserEntity) =>
+  action(UserActionTypes.UPDATE.START, data, {
+    method: 'put',
+    route: `user/users/${id}/`,
+  });
+
+export const setRating = (id: EntityId, data: RateData) =>
+  action(UserActionTypes.RATE_USER.START, data, {
+    method: 'put',
+    route: `user/rate/${id}/`,
+  });

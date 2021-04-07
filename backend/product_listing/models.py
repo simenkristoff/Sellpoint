@@ -13,6 +13,10 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'categories'
 
+    def save(self, *args, **kwargs):
+        self.name = self.name[0].upper() + self.name[1:].lower()
+        return super(Category, self).save(*args, **kwargs)
+
 
 class ProductListing(models.Model):
     owner = models.ForeignKey(

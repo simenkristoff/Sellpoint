@@ -21,8 +21,9 @@ export const userReducer = (
 ): UserState => {
   switch (action.type) {
     case UserActionTypes.FETCH.START:
+    case UserActionTypes.FETCH_BY_ID.START:
     case UserActionTypes.DELETE.START:
-    case UserActionTypes.FETCH_BY_ID.START: {
+    case UserActionTypes.RATE_USER.START: {
       return { ...state, loading: true, status: null };
     }
     case UserActionTypes.FETCH.SUCCESS: {
@@ -36,6 +37,14 @@ export const userReducer = (
       return {
         ...state,
         data: deleteObjectInArray<UserEntity>(state.data, action),
+        loading: false,
+        status: null,
+      };
+    }
+    case UserActionTypes.RATE_USER.SUCCESS: {
+      return {
+        ...state,
+        byId: { ...state.byId, rating: action.payload },
         loading: false,
         status: null,
       };
@@ -56,8 +65,9 @@ export const userReducer = (
     }
 
     case UserActionTypes.FETCH.ERROR:
-    case UserActionTypes.DELETE.ERROR:
-    case UserActionTypes.FETCH_BY_ID.ERROR: {
+    case UserActionTypes.FETCH_BY_ID.ERROR:
+    case UserActionTypes.RATE_USER.ERROR:
+    case UserActionTypes.DELETE.ERROR: {
       return {
         ...state,
         loading: false,

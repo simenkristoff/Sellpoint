@@ -14,12 +14,15 @@ interface IProps {
 }
 
 export const FavouriteButton: React.FC<IProps> = (props: IProps) => {
-  const color = props.inFavourites ? "#eb2f96" : "lightgrey";
+  const color = props.inFavourites ? '#eb2f96' : 'lightgrey';
 
   return (
     <Tooltip title={props.tooltipText}>
-      <Button icon={<HeartTwoTone twoToneColor={color} style={{ fontSize: '30px' }} />} 
-        style={{ border: 'none', background: 'none' }} onClick={(e) => props.onClick(e)} />
+      <Button
+        icon={<HeartTwoTone twoToneColor={color} style={{ fontSize: '30px' }} />}
+        style={{ border: 'none', background: 'none' }}
+        onClick={e => props.onClick(e)}
+      />
     </Tooltip>
   );
 };

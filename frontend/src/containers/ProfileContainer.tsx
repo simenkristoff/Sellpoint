@@ -2,8 +2,8 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { EntityId, IApplicationState } from '@/state/interface';
 import { Profile } from '@/components/Profile';
-import { fetchUserById, updateProfile, deleteUser } from '@/state/ducks/user/actions';
-import { UserState } from '@/state/ducks/user/types';
+import { fetchUserById, updateProfile, deleteUser, setRating } from '@/state/ducks/user/actions';
+import { RateData, UserState } from '@/state/ducks/user/types';
 import { useHistory, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { logout } from '@/state/ducks/auth/actions';
@@ -24,7 +24,7 @@ export const ProfileContainer = () => {
   const history = useHistory();
   const { userId } = useParams<IParams>();
   const [visible, setVisible] = useState<boolean>(false);
-  const { isAdmin, user_id, isLoggedIn } = useSelector(({ auth }: IApplicationState) => auth);
+  const { user_id, isLoggedIn } = useSelector(({ auth }: IApplicationState) => auth);
   const { byId, loading }: UserState = useSelector(({ user }: IApplicationState) => user);
   const products = useSelector(({ product }: IApplicationState) => product.byUser);
   const [isOwner, setIsOwner] = useState<boolean>(false);
@@ -71,6 +71,7 @@ export const ProfileContainer = () => {
     fetchUserById: useCallback((userId: EntityId) => dispatch(fetchUserById(userId)), [dispatch]),
     fetchUserProducts: useCallback((userId: EntityId) => dispatch(fetchUserProducts(userId)), [dispatch]),
     clearUserProducts: useCallback(() => dispatch(clearUserProducts()), [dispatch]),
+    rateUser: useCallback((userId: EntityId, data: RateData) => dispatch(setRating(userId, data)), [dispatch]),
     handleEdit: useCallback((values: any) => handleEdit(values), [dispatch]),
     deleteUser: useCallback((values: any) => handleDeleteUser(values), [dispatch]),
     openModal: useCallback(() => openModal(), []),

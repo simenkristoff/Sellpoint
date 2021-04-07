@@ -3,7 +3,6 @@ import logo from '@/assets/img/logo.png';
 import { Nav } from '@/components/Navigation';
 import { LoginOutlined, UserAddOutlined, LogoutOutlined, UserOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { EntityId, UserPermissions } from '@/state/interface';
-import { WithAdvertAuth } from '@/hoc';
 
 interface IProps {
   username: string | null;

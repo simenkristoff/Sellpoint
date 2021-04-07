@@ -27,8 +27,7 @@ class ProductListing(models.Model):
     favourited_by = models.ManyToManyField(User, blank=True)
 
     class Meta:
-        ordering = ['-upload_date']
-
+        ordering = ['-upload_date']    
 
 class ProductImage(models.Model):
     product = models.ForeignKey(

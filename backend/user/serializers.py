@@ -3,9 +3,10 @@ from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User, Group
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.validators import UniqueValidator
+from django.db.models import Avg
 from django.contrib.auth.password_validation import validate_password
 import django.core as core
-
+from .models import UserRating
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,14 +25,22 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     groups = GroupSerializer(many=True)
-
-    def get_favourites(self, obj):
-        return obj.productlisting_set.all().values()
+    rating = serializers.SerializerMethodField('get_rating')
 
     class Meta:
         model = User
         fields = ('id', 'username', 'email',
-                  'is_superuser', 'first_name', 'last_name', 'groups')
+                  'is_superuser', 'first_name', 'last_name', 'groups', 'rating')
+
+    def get_favourites(self, obj):
+        return obj.productlisting_set.all().values()
+
+    def get_rating(self, user):
+        queryset = UserRating.objects.filter(rated=user.id).aggregate(rating=Avg('rating'))
+        rating = queryset["rating"]
+        if rating is None:
+            rating = 0
+        return int(rating)
 
 
 class RegisterSerializer(serializers.ModelSerializer):

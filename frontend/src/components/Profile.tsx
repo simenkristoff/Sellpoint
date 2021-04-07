@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { Container } from './Container';
 import { Col, Row, Button, Modal, Form, Divider, PageHeader, Descriptions, Result } from 'antd';
 import { EntityId } from '@/state/interface';
-import { UserEntity } from '@/state/ducks/user/types';
+import { RateData, UserEntity } from '@/state/ducks/user/types';
 import { EditProfileForm } from './forms/EditProfileForm';
 import { ProductEntity } from '@/state/ducks/product/types';
 import { Breakpoints } from './ProductManager/interface';
 import { ProductCard } from './ProductManager/ProductCard';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { StarRating } from './StarRating';
 
 interface IProps {
   userId: string;
@@ -19,6 +20,7 @@ interface IProps {
   isOwner: boolean;
   fetchUserById: (userId: EntityId) => void;
   fetchUserProducts: (userId: EntityId) => void;
+  rateUser: (userId: EntityId, data: RateData) => void;
   clearUserProducts: () => void;
   handleEdit: (values: any) => void; //change from String to void
   openModal: () => void;
@@ -36,6 +38,7 @@ export const Profile: React.FC<IProps> = ({
   breakpoints,
   fetchUserById,
   fetchUserProducts,
+  rateUser,
   clearUserProducts,
   handleEdit,
   openModal,
@@ -43,7 +46,7 @@ export const Profile: React.FC<IProps> = ({
   deleteUser,
 }: IProps) => {
   const [form] = Form.useForm();
-  const { username, email, first_name, last_name } = user as UserEntity;
+  const { username, email, first_name, last_name, rating } = user as UserEntity;
 
   useEffect(() => {
     fetchUserById(parseInt(userId));
@@ -84,6 +87,14 @@ export const Profile: React.FC<IProps> = ({
 
   const handleDelete = () => {
     deleteUser(user as UserEntity);
+  };
+
+  const handleRating = (rating: number) => {
+    const data: RateData = {
+      rater: user_id as EntityId,
+      rate: rating,
+    };
+    rateUser(parseInt(userId), data);
   };
 
   const extras = () => {
@@ -135,6 +146,11 @@ export const Profile: React.FC<IProps> = ({
             <Descriptions.Item label='Navn'>{`${first_name} ${last_name}`}</Descriptions.Item>
             <Descriptions.Item label='Email'>{email}</Descriptions.Item>
           </Descriptions>
+
+          <h5 style={{ marginTop: '1rem' }}>{`Rangering: ${rating}/5`}</h5>
+          <StarRating style={{ flex: '1 1 100%' }} initialRating={rating} onClick={handleRating} />
+          <Divider />
+
           <h4 style={{ marginTop: '1rem' }}>{`${username} sine produkter`}</h4>
           <Divider />
           {renderProducts()}

@@ -23,7 +23,6 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    favourites = serializers.SerializerMethodField('get_favourites')
     groups = GroupSerializer(many=True)
 
     def get_favourites(self, obj):
@@ -32,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email',
-                  'is_superuser', 'first_name', 'last_name', 'favourites',  'groups')
+                  'is_superuser', 'first_name', 'last_name', 'groups')
 
 
 class RegisterSerializer(serializers.ModelSerializer):

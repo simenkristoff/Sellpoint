@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAdverts } from './state/ducks/advert/actions';
 import { IApplicationState } from './state/interface';
 import { AdsProvider } from './context/adsContext';
+import { FavouriteContainer } from './containers/FavouriteContainer';
 
 export const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ export const App: React.FC = () => {
             path='/favoritter'
             render={() => (
               <MainLayout>
-                <ProductListContainer favourites={true} />
+                <FavouriteContainer />
               </MainLayout>
             )}
           />
@@ -86,7 +87,6 @@ export const App: React.FC = () => {
             )}
           />
           <Route
-            //legger til min side, må også hente fra components
             path='/minside/:userId'
             render={() => (
               <MainLayout>

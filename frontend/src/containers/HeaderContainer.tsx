@@ -13,6 +13,7 @@ export const HeaderContainer = () => {
     isLoggedIn: auth.isLoggedIn,
     userId: auth.user_id,
     isAdmin: auth.isAdmin,
+    permissions: auth.permissions,
   }));
 
   const dispatchToProps = {

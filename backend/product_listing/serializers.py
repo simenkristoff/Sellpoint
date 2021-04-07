@@ -16,9 +16,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProductListingSerializer(serializers.ModelSerializer):
     owner_details = serializers.SerializerMethodField('get_owner')
-    purchaser_username = serializers.SerializerMethodField(
-        'get_purchaser_username')
     images = serializers.SerializerMethodField('get_images')
+    cat_details = serializers.SerializerMethodField('get_category')
 
     class Meta:
         model = ProductListing
@@ -42,13 +41,10 @@ class ProductListingSerializer(serializers.ModelSerializer):
             return UserDetailsSerializer(user).data
         return None
 
-    def get_purchaser_username(self, product_listing):
-        if product_listing.purchaser is not None:
-            username = User.objects.get(
-                id=product_listing.purchaser.id).username
-            return username
-        return None
-
     def get_images(self, product):
         images = ProductImage.objects.filter(product=product.id)
         return ImageSerializer(images, read_only=True, many=True).data
+
+    def get_category(self, product):
+        category = Category.objects.get(id=product.category.id)
+        return CategorySerializer(category).data

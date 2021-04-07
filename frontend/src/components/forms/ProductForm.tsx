@@ -5,7 +5,7 @@ import { IApplicationState } from '@/state/interface';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '@/state/ducks/category/actions';
 import { ImageUpload } from '../ImageUpload';
-import { FormMessage } from '@/constants';
+import { FormMessage, locations } from '@/constants';
 
 interface IProps {
   form: FormInstance<any>;
@@ -15,16 +15,11 @@ interface IProps {
 export const ProductForm: React.FC<IProps> = ({ form, initialValues }: IProps) => {
   const dispatch = useDispatch();
   const owner = useSelector(({ auth }: IApplicationState) => auth.user_id);
-  const { data } = useSelector(({ category }: IApplicationState) => category);
+  const categories = useSelector(({ category }: IApplicationState) => category.data);
 
   useEffect(() => {
     dispatch(fetchCategories());
   }, []);
-
-  const categoryOptions = () =>
-    data.map(value => {
-      return { label: value.name, value: value.name };
-    });
 
   return (
     <Form
@@ -45,7 +40,22 @@ export const ProductForm: React.FC<IProps> = ({ form, initialValues }: IProps) =
         <Input />
       </Form.Item>
       <Form.Item name='category' label='Kategori'>
-        <Select options={categoryOptions()} placeholder='Velg kategori' showSearch />
+        <Select>
+          {categories.map(category => (
+            <Select.Option value={category.id} key={category.id}>
+              {category.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
+      <Form.Item name='location' label='Sted'>
+        <Select showSearch>
+          {locations.map(location => (
+            <Select.Option value={location} key={location}>
+              {location}
+            </Select.Option>
+          ))}
+        </Select>
       </Form.Item>
       <Form.Item name='description' label='Produktbeskrivelse' initialValue={null}>
         <Input.TextArea />

@@ -43,9 +43,9 @@ export const AdvertActionTypes = {
 export interface AdvertActions {
   fetchAdverts: () => TMetaAction;
   fetchAdvertsByUser: (userId: EntityId) => TPayloadMetaAction<EntityId>;
-  createEvent: (advert: AdvertEntity) => TPayloadMetaAction<AdvertEntity>;
-  updateEvent: (advert: AdvertEntity) => TPayloadMetaAction<AdvertEntity>;
-  deleteEvent: (advert: AdvertEntity) => TPayloadMetaAction<AdvertEntity>;
+  createAdvert: (advert: AdvertEntity) => TPayloadMetaAction<AdvertEntity>;
+  updateAdvert: (advert: AdvertEntity) => TPayloadMetaAction<AdvertEntity>;
+  deleteAdvert: (advert: AdvertEntity) => TPayloadMetaAction<AdvertEntity>;
   setAdvert: (advert: AdvertEntity) => TPayloadMetaAction<AdvertEntity>;
   clear: () => TMetaAction;
 }

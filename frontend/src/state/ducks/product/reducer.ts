@@ -7,6 +7,8 @@ import { updateObjectInArray, deleteObjectInArray } from '@/state/utils';
 export const initialState: ProductState = {
   byId: {},
   data: [],
+  favourites: [],
+  byUser: [],
   loading: false,
   status: null,
 };
@@ -24,12 +26,13 @@ export const productReducer = (
     case ProductActionTypes.FETCH.START:
     case ProductActionTypes.FETCH_BY_ID.START:
     case ProductActionTypes.CREATE.START:
-    // case ProductActionTypes.UPDATE.START:
+    case ProductActionTypes.FETCH_FAVOURITES.START:
+    case ProductActionTypes.FETCH_USER_PRODUCTS.START:
     case ProductActionTypes.DELETE.START: {
       return { ...state, loading: true, status: null };
     }
     case ProductActionTypes.UPDATE.START: {
-      return {...state, status:null}
+      return { ...state, status: null };
     }
     case ProductActionTypes.FETCH.SUCCESS: {
       return { ...initialState, data: action.payload, loading: false, status: null };
@@ -39,6 +42,12 @@ export const productReducer = (
     }
     case ProductActionTypes.CREATE.SUCCESS: {
       return { ...state, data: [...state.data, action.payload], loading: false, status: null };
+    }
+    case ProductActionTypes.FETCH_FAVOURITES.SUCCESS: {
+      return { ...state, favourites: action.payload, loading: false, status: null };
+    }
+    case ProductActionTypes.FETCH_USER_PRODUCTS.SUCCESS: {
+      return { ...state, byUser: action.payload, loading: false, status: null };
     }
     case ProductActionTypes.UPDATE.SUCCESS: {
       return {
@@ -57,18 +66,29 @@ export const productReducer = (
         status: null,
       };
     }
+    case ProductActionTypes.REMOVE_FAVOURITE: {
+      return { ...state, favourites: deleteObjectInArray<ProductEntity>(state.favourites, action) };
+    }
     case ProductActionTypes.SET: {
       return { ...state, byId: action.payload, loading: false, status: null };
     }
     case ProductActionTypes.FETCH.ERROR:
     case ProductActionTypes.FETCH_BY_ID.ERROR:
     case ProductActionTypes.CREATE.ERROR:
+    case ProductActionTypes.FETCH_FAVOURITES.ERROR:
+    case ProductActionTypes.FETCH_USER_PRODUCTS.ERROR:
     case ProductActionTypes.UPDATE.ERROR:
     case ProductActionTypes.DELETE.ERROR: {
       return {
         ...state,
         loading: false,
         status: action.payload,
+      };
+    }
+    case ProductActionTypes.CLEAR_USER_PRODUCTS: {
+      return {
+        ...state,
+        byUser: [],
       };
     }
     case ProductActionTypes.CLEAR:

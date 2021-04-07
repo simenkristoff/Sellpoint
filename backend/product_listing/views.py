@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+import json
 
 from .models import Category, ProductListing, ProductImage
 from .serializers import CategorySerializer, ProductListingSerializer
@@ -27,6 +28,15 @@ class ProductListingViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.AllowAny
     ]
+
+    def list(self, request):
+        if(request.method == 'GET'):
+            queryset = ProductListing.objects.all()
+            user_param = request.GET.get('by', None)
+            if user_param is not None:
+                queryset = queryset.filter(owner=user_param)
+            serializer = ProductListingSerializer(queryset, many=True)
+            return Response(serializer.data)
 
     def retrieve_favourites(self, request, pk=None):
         queryset = ProductListing.objects.filter(favourited_by__id=pk)
@@ -61,6 +71,9 @@ class ProductListingViewSet(viewsets.ModelViewSet):
                     product=self.get_object()).filter(image__exact=filename)
                 if len(existingImg) == 0:
                     imagesToUpload.append(image)
+            else:
+                data = json.loads(image)
+                originalImages.append(data["image"].replace("/media/", "", 1))
 
         # Delete removed images, if any
         ProductImage.objects.filter(
@@ -70,6 +83,10 @@ class ProductListingViewSet(viewsets.ModelViewSet):
         for image in imagesToUpload:
             ProductImage.objects.create(
                 product=self.get_object(), image=image)
+
+        product = self.get_object()
+        product.favourited_by.clear()
+        
 
         serializer = self.get_serializer(
             self.get_object(), data=request.data, partial=partial)

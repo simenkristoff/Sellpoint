@@ -58,6 +58,54 @@ function* handleFetchById(params: TPayloadMetaAction<EntityId>): Generator {
 }
 
 /**
+ * Handle async GET request to API for fetching favourited Products by an userId.
+ * @param {TPayloadMetaAction<EntityId>} params action with payload and meta data.
+ */
+function* handleFetchFavourites(params: TPayloadMetaAction<EntityId>): Generator {
+  try {
+    const data = yield call(apiCaller, params.meta.method, params.meta.route);
+    yield put({ type: ProductActionTypes.FETCH_FAVOURITES.SUCCESS, payload: data });
+  } catch (err) {
+    if (err instanceof Error) {
+      const { message } = err;
+      yield put({
+        type: ProductActionTypes.FETCH_FAVOURITES.ERROR,
+        payload: message,
+      });
+    } else {
+      yield put({
+        type: ProductActionTypes.FETCH_FAVOURITES.ERROR,
+        payload: 'An unknown error occured.',
+      });
+    }
+  }
+}
+
+/**
+ * Handle async GET request to API for fetching User Products by an userId.
+ * @param {TPayloadMetaAction<EntityId>} params action with payload and meta data.
+ */
+function* handleFetchUserProducts(params: TPayloadMetaAction<EntityId>): Generator {
+  try {
+    const data = yield call(apiCaller, params.meta.method, params.meta.route);
+    yield put({ type: ProductActionTypes.FETCH_USER_PRODUCTS.SUCCESS, payload: data });
+  } catch (err) {
+    if (err instanceof Error) {
+      const { message } = err;
+      yield put({
+        type: ProductActionTypes.FETCH_USER_PRODUCTS.ERROR,
+        payload: message,
+      });
+    } else {
+      yield put({
+        type: ProductActionTypes.FETCH_USER_PRODUCTS.ERROR,
+        payload: 'An unknown error occured.',
+      });
+    }
+  }
+}
+
+/**
  * Handle async POST request to API for creating a new Product.
  * @param {TPayloadMetaAction<ProductEntity>} params action with payload and meta data.
  */
@@ -140,6 +188,14 @@ function* watchFetchByIdRequest(): Generator {
   yield takeEvery(ProductActionTypes.FETCH_BY_ID.START, handleFetchById);
 }
 
+function* watchFetchFavouritesRequest(): Generator {
+  yield takeEvery(ProductActionTypes.FETCH_FAVOURITES.START, handleFetchFavourites);
+}
+
+function* watchFetchUserProducts(): Generator {
+  yield takeEvery(ProductActionTypes.FETCH_USER_PRODUCTS.START, handleFetchUserProducts);
+}
+
 function* watchCreateRequest(): Generator {
   yield takeEvery(ProductActionTypes.CREATE.START, handleCreate);
 }
@@ -159,6 +215,8 @@ export default function* productSaga() {
   yield all([
     fork(watchFetchRequest),
     fork(watchFetchByIdRequest),
+    fork(watchFetchFavouritesRequest),
+    fork(watchFetchUserProducts),
     fork(watchCreateRequest),
     fork(watchUpdateRequest),
     fork(watchDeleteRequest),

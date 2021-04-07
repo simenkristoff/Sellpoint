@@ -5,16 +5,15 @@ import { useParams } from 'react-router-dom';
 import { ProductEntity } from '@/state/ducks/product/types';
 
 import { Container } from './Container';
-import { Carousel, Col, Row, Button, Modal, Form } from 'antd';
+import { Col, Row, Button, Modal, Form } from 'antd';
 import { Spinner } from './Spinner';
 import { EntityId } from '@/state/interface';
 import { MailOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
 import { ProductForm } from './forms/ProductForm';
-import { fetchUserById, fetchUsers } from '@/state/ducks/user/actions';
 import { Advert } from './Advert';
 import { pickRandomAd } from '@/utils';
 import { AdsContext } from '@/context';
-import { ProductGallery } from './ProductGallery';
+import { ProductGallery } from './ProductManager/ProductGallery';
 
 interface IProps {
   product: ProductEntity | {};

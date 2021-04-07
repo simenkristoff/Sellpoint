@@ -1,3 +1,39 @@
-.product-filter-text {
-    text-align: center;
+.product-filter {
+  left: 0;
+  height: 100%;
+  position: absolute;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  border: none;
+  border-right: 1px solid;
+  border-color: theme(border-light);
+
+  &.ant-layout-sider-zero-width {
+    padding: 0;
+    border-color: transparent;
+
+    .ant-layout-sider-zero-width-trigger {
+      border-radius: 2px;
+    }
+  }
+
+  .ant-layout-sider-zero-width-trigger {
+    height: 36px;
+    top: 0.125rem;
+    border: 1px solid;
+    border-color: rgba(theme(primary), 0.5);
+    color: rgba(theme(primary), 0.8);
+
+    &:hover {
+      border-color: rgba(theme(primary), 0.8);
+      transition: 0.3s;
+    }
+
+    > .anticon.anticon-filter {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }

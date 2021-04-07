@@ -6,7 +6,6 @@ import ImgCrop from 'antd-img-crop';
 import { ImagePreview } from './ImagePreview';
 import { ImageUploadInterface, PreviewFile } from './interface';
 import { ImageEntity } from '@/state/interface';
-import { parseUrlToFile } from '@/utils';
 
 export const ImageUpload: React.FC<ImageUploadInterface> = ({
   allowMultiple,

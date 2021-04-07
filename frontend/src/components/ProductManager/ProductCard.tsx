@@ -3,25 +3,23 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import { ProductEntity } from '@/state/ducks/product/types';
 import { Link } from 'react-router-dom';
-import { DeleteButton } from './DeleteButton';
-import { FavouriteButton } from './FavouriteButton';
-import { PropertySafetyFilled } from '@ant-design/icons';
-import { updateProduct } from '@/state/ducks/product/actions';
+import { DeleteButton } from '../DeleteButton';
+import { FavouriteButton } from '../FavouriteButton';
+import { removeFavourite, updateProduct } from '@/state/ducks/product/actions';
 
 interface IProps {
   product: ProductEntity;
-  isAdmin: boolean;
   observerID: number | null;
-  deleteProduct: (product: ProductEntity) => void;
+  isAdmin?: boolean;
+  deleteProduct?: (product: ProductEntity) => void;
 }
 
-export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, deleteProduct }: IProps) => {
+export const ProductCard: React.FC<IProps> = ({ product, observerID, isAdmin, deleteProduct }: IProps) => {
   const dispatch = useDispatch();
   const [inFavourites, setInFavourites] = useState(false);
   const favouritesToolTipText = inFavourites ? 'Fjern fra favoritter' : 'Legg til i favoritter';
   const cover: string = product.images.length > 0 ? `http://localhost:8000${product.images[0].image}` : '';
   const handleFavouriteButton = (e: React.MouseEvent<HTMLElement, MouseEvent> | undefined) => {
-    e?.preventDefault();
     setInFavourites(!inFavourites);
 
     if (observerID != null) {
@@ -35,8 +33,10 @@ export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, de
           }
         }
       }
-
       dispatch(updateProduct(product));
+      if (inFavourites) {
+        dispatch(removeFavourite(product));
+      }
     }
   };
 
@@ -49,11 +49,7 @@ export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, de
   return (
     <div className='product-card-wrapper'>
       <article className='product-card'>
-        {isAdmin && (
-          <span className='c2a c2a-delete'>
-            <DeleteButton onClick={() => deleteProduct(product)} />
-          </span>
-        )}
+        {isAdmin && <span className='c2a c2a-delete'>{deleteProduct && <DeleteButton onClick={() => deleteProduct(product)} />}</span>}
         {observerID != null && (
           <span className='heart'>
             <FavouriteButton onClick={e => handleFavouriteButton(e)} tooltipText={favouritesToolTipText} inFavourites={inFavourites} />
@@ -71,7 +67,7 @@ export const ProductCard: React.FC<IProps> = ({ product, isAdmin, observerID, de
             <h3 className='product-title'>{product.title}</h3>
           </header>
           <footer className='footer'>
-            <span className='category'>{product.category}</span>
+            <span className='category'>{product.cat_details.name}</span>
             <span className='price'>{product.price}kr</span>
           </footer>
         </Link>

@@ -18,7 +18,7 @@ const useAdvertAuth = () => {
 
   useEffect(() => {
     if (!verifyAdvertAuth(currentUser)) {
-      history.push('/logg_inn');
+      history.push('/');
     }
   }, [currentUser, history]);
 

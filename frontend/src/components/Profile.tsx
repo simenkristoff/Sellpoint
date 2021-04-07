@@ -1,50 +1,57 @@
 import React, { useEffect } from 'react';
-import _ from 'lodash';
-
-import { useParams } from 'react-router-dom';
-
 import { Container } from './Container';
-import { Col, Row, Button, Modal, Form, List, Divider } from 'antd';
+import { Col, Row, Button, Modal, Form, Divider, PageHeader, Descriptions, Result } from 'antd';
 import { EntityId } from '@/state/interface';
 import { UserEntity } from '@/state/ducks/user/types';
-
-import { DeleteButton } from './DeleteButton';
 import { EditProfileForm } from './forms/EditProfileForm';
-import { useDispatch } from 'react-redux';
+import { ProductEntity } from '@/state/ducks/product/types';
+import { Breakpoints } from './ProductManager/interface';
+import { ProductCard } from './ProductManager/ProductCard';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 interface IProps {
+  userId: string;
   user: UserEntity | {};
-  loading: boolean;
-  isAdmin: boolean;
+  products: ProductEntity[];
   user_id: EntityId | null;
+  breakpoints: Breakpoints;
   visible: boolean;
   isOwner: boolean;
-  fetchUserById: (userId: string) => void;
+  fetchUserById: (userId: EntityId) => void;
+  fetchUserProducts: (userId: EntityId) => void;
+  clearUserProducts: () => void;
   handleEdit: (values: any) => void; //change from String to void
   openModal: () => void;
   closeModal: () => void;
   deleteUser: (user: UserEntity) => void;
 }
 
-interface IParams {
-  userId: string;
-}
-
 export const Profile: React.FC<IProps> = ({
+  userId,
+  user_id,
   user,
   visible,
   isOwner,
+  products,
+  breakpoints,
   fetchUserById,
+  fetchUserProducts,
+  clearUserProducts,
   handleEdit,
   openModal,
   closeModal,
   deleteUser,
 }: IProps) => {
   const [form] = Form.useForm();
-  const { userId } = useParams<IParams>();
+  const { username, email, first_name, last_name } = user as UserEntity;
 
   useEffect(() => {
-    fetchUserById(userId);
+    fetchUserById(parseInt(userId));
+    fetchUserProducts(parseInt(userId));
+
+    return () => {
+      clearUserProducts();
+    };
   }, []);
 
   const renderModal = () => (
@@ -75,40 +82,65 @@ export const Profile: React.FC<IProps> = ({
     </Modal>
   );
 
-  const data = [
-    `Fornavn: ${user && (user as UserEntity).first_name!}`,
-    `Etternavn: ${user && (user as UserEntity).last_name!}`,
-    `Email-adresse: ${user && (user as UserEntity).email!}`,
-  ];
-
-  if (user === undefined) {
-    return null;
-  }
-
-  const deleteUserAndLogOut = () => {
+  const handleDelete = () => {
     deleteUser(user as UserEntity);
   };
 
+  const extras = () => {
+    if (isOwner) {
+      return [
+        <Button key='edit' type='primary' onClick={openModal}>
+          Rediger profil
+        </Button>,
+        <Button key='delete' danger onClick={handleDelete}>
+          Slett bruker
+        </Button>,
+      ];
+    }
+
+    return [
+      <a key='contact' className='c2a-contact' href={`mailto: ${email}`}>
+        <Button type='primary'>Kontakt selger</Button>
+      </a>,
+    ];
+  };
+
+  const renderProducts = () => {
+    if (products.length > 0) {
+      return (
+        <Row gutter={[16, 16]}>
+          {products.length > 0 &&
+            products.map(product => (
+              <Col lg={breakpoints.lg} md={breakpoints.md} span={24} key={product.id}>
+                <ProductCard product={product} isAdmin={false} observerID={user_id} />
+              </Col>
+            ))}
+        </Row>
+      );
+    }
+
+    return <Result icon={<ExclamationCircleOutlined />} title={`${username} har ikke lagt til noen produkter`} />;
+  };
+
   const render = () => {
+    if (user === undefined) {
+      return null;
+    }
+
     return (
       <Container className='profile-container' size='default'>
-        <Row justify='center' align='middle' style={{ padding: '2rem' }} className='userProfile'>
-          <Col md={12} span={24}>
-            <Divider className='user-name' orientation='left'>
-              {user && (user as UserEntity).username!}
-            </Divider>
-            <List bordered dataSource={data} renderItem={item => <List.Item>{item}</List.Item>} />
-            {renderModal()}
-            <div className='buttons'>
-              {isOwner && (
-                <Button className='edit-profile' type='primary' size='large' ghost onClick={openModal}>
-                  Rediger profil
-                </Button>
-              )}
-              <div className='delete-button'>{isOwner && <DeleteButton onClick={deleteUserAndLogOut} />}</div>
-            </div>
-          </Col>
-        </Row>
+        <PageHeader ghost={false} title={`${username} sin profil`} extra={extras()}>
+          <Descriptions size='small' column={2} style={{ paddingTop: '1rem' }}>
+            <Descriptions.Item label='Brukernavn'>{username}</Descriptions.Item>
+            <Descriptions.Item label='Navn'>{`${first_name} ${last_name}`}</Descriptions.Item>
+            <Descriptions.Item label='Email'>{email}</Descriptions.Item>
+          </Descriptions>
+          <h4 style={{ marginTop: '1rem' }}>{`${username} sine produkter`}</h4>
+          <Divider />
+          {renderProducts()}
+        </PageHeader>
+
+        {renderModal()}
       </Container>
     );
   };

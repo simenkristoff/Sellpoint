@@ -1,8 +1,8 @@
 import { createCategory, deleteCategory, fetchCategories } from '@/state/ducks/category/actions';
 import { CategoryEntity } from '@/state/ducks/category/types';
 import { IApplicationState } from '@/state/interface';
-import { Button, Form, Input, Table } from 'antd';
-import { ColumnsType } from 'antd/lib/table';
+import { Button, Form, Input, PageHeader, Table } from 'antd';
+import { ColumnsType, TableProps } from 'antd/lib/table';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteButton } from '../DeleteButton';
@@ -14,7 +14,7 @@ export const CategoryManager: React.FC = () => {
   const dispatch = useDispatch();
 
   const { data } = useSelector(({ category }: IApplicationState) => category);
-  
+
   useEffect(() => {
     dispatch(fetchCategories());
   }, []);
@@ -25,7 +25,7 @@ export const CategoryManager: React.FC = () => {
 
   const handleDeleteCategory = (values: any) => {
     dispatch(deleteCategory(values));
-  }
+  };
 
   const columns: ColumnsType<CategoryEntity> = [
     {
@@ -36,20 +36,29 @@ export const CategoryManager: React.FC = () => {
       sorter: (a, b) => a.name.localeCompare(b.name, 'nb'),
     },
     {
-      title: '',
+      title: 'Handlinger',
       key: 'action',
       align: 'center',
       width: '5%',
-      render: (record) => (
-        <DeleteButton onClick={() => handleDeleteCategory(record)}/>
-      ),
+      // eslint-disable-next-line react/display-name
+      render: record => <DeleteButton onClick={() => handleDeleteCategory(record)} />,
     },
   ];
 
-  return (
-    <div className='category-manager'>
-      <h3>Legg til kategori</h3>
-      <Form onFinish={handleAddCategory} layout='inline' requiredMark='optional'>
+  const tableProps: TableProps<CategoryEntity> = {
+    showSorterTooltip: false,
+    pagination: {
+      pageSize: 10,
+      position: ['bottomCenter'],
+    },
+    dataSource: data,
+    columns,
+    rowKey: record => record.id,
+  };
+
+  const renderForm = () => {
+    return [
+      <Form key='add_category' onFinish={handleAddCategory} layout='inline' requiredMark='optional'>
         <Form.Item
           name='name'
           label='Kategorinavn'
@@ -65,9 +74,15 @@ export const CategoryManager: React.FC = () => {
             Legg til
           </Button>
         </Form.Item>
-      </Form>
+      </Form>,
+    ];
+  };
 
-      <Table dataSource={data} columns={columns} />
+  return (
+    <div className='category-manager'>
+      <PageHeader ghost={false} title={'Legg til kategori'} extra={renderForm()}></PageHeader>
+
+      <Table {...tableProps} />
     </div>
   );
 };

@@ -12,6 +12,10 @@ Installerer Python-pakkene som er nødvendige for prosjektet.
 
 Starter backend.
 
+### `python manage.py qcluster`
+
+Starter kjøring planlagte oppgaver på serveren.
+
 ### `python manage.py createsuperuser`
 
 Oppretter ny admin-bruker.

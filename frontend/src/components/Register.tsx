@@ -23,7 +23,7 @@ export const Register: React.FC<IProps> = ({ register, loading, response }: IPro
           <Card title='Registrer deg'>
             <ErrorResponse response={response} />
             <Spinner loading={loading} />
-            <RegisterForm register={register}/>
+            <RegisterForm register={register} />
           </Card>
         </Col>
       </Row>

@@ -100,9 +100,5 @@ function* watchDeleteRequest(): Generator {
  * saga init, forks in effects.
  */
 export default function* categorySaga() {
-  yield all([
-    fork(watchFetchRequest),
-    fork(watchCreateRequest),
-    fork(watchDeleteRequest),
-  ]);
+  yield all([fork(watchFetchRequest), fork(watchCreateRequest), fork(watchDeleteRequest)]);
 }

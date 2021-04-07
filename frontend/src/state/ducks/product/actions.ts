@@ -17,7 +17,7 @@ export const fetchProducts = () => {
  * Fetch a single Product by id.
  * @param id the id of the object to retrieve
  */
-export const fetchProductById = (id: EntityId | string) =>
+export const fetchProductById = (id: EntityId) =>
   action(ProductActionTypes.FETCH_BY_ID.START, [], {
     method: 'get',
     route: `product/products/${id}/`,
@@ -27,25 +27,31 @@ export const fetchProductById = (id: EntityId | string) =>
  * Fetch a users favourite products by user id.
  * @param id the id of the user
  */
- export const fetchFavouritesByUserId = (id: EntityId | string) =>  
- action(ProductActionTypes.FETCH.START, [], {
-   method: 'get',
-   route: `product/favourites/${id}`,
- });
+export const fetchFavourites = (id: EntityId) =>
+  action(ProductActionTypes.FETCH_FAVOURITES.START, [], {
+    method: 'get',
+    route: `product/favourites/${id}`,
+  });
+
+/**
+ * Fetch a products by user id.
+ * @param id the id of the user
+ */
+export const fetchUserProducts = (id: EntityId) =>
+  action(ProductActionTypes.FETCH_USER_PRODUCTS.START, [], {
+    method: 'get',
+    route: `product/products/?by=${id}`,
+  });
 
 /**
  * Create a new Product.
  * @param {ProductEntity} data the Product to create.
  */
-export const createProduct = (data: ProductEntity) => {
-  const formData = new FormData();
-  //formData.append('image', file, path + '/' + file.name);
-
-  return action(ProductActionTypes.CREATE.START, data, {
+export const createProduct = (data: ProductEntity) =>
+  action(ProductActionTypes.CREATE.START, data, {
     method: 'post',
     route: 'product/products/',
   });
-};
 
 /**
  * Update a Product.
@@ -66,6 +72,17 @@ export const deleteProduct = (data: ProductEntity) =>
     method: 'delete',
     route: `product/products/${data.id}/`,
   });
+
+/**
+ * Remove favourite.
+ * @param {ProductEntity} data the Product instance to remove.
+ */
+export const removeFavourite = (data: ProductEntity) => action(ProductActionTypes.REMOVE_FAVOURITE, data);
+
+/**
+ * Clears User Product state
+ */
+export const clearUserProducts = () => action(ProductActionTypes.CLEAR_USER_PRODUCTS);
 
 /**
  * Set Product.

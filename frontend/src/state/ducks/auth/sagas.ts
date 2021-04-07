@@ -1,8 +1,9 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 
-import { TPayloadMetaAction } from '@/state/interface';
-import { apiCaller, saveToken } from '@/state/utils';
+import { AuthToken, DecodedToken, TPayloadMetaAction } from '@/state/interface';
+import { apiCaller, getToken, saveToken } from '@/state/utils';
 import { AuthActionTypes, LoginCredentials, RegisterCredentials } from './types';
+import jwtDecode from 'jwt-decode';
 
 /**
  * Business logic of effect.
@@ -30,7 +31,17 @@ function* handleRegister(params: TPayloadMetaAction<RegisterCredentials>): Gener
   try {
     const data: any = yield call(apiCaller, params.meta.method, params.meta.route, params.payload);
     yield saveToken(data.token);
-    yield put({ type: AuthActionTypes.REGISTER.SUCCESS, payload: data });
+    const tokenData: any = yield jwtDecode(data.token);
+    const { id, username, email, is_superuser, groups } = tokenData as DecodedToken;
+    const auth_data = {
+      id,
+      username,
+      email,
+      is_superuser,
+      groups,
+      token: data.token,
+    };
+    yield put({ type: AuthActionTypes.REGISTER.SUCCESS, payload: auth_data });
   } catch (err) {
     if (err instanceof Error) {
       const { message } = err;

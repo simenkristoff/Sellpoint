@@ -8,8 +8,6 @@ user_list = UserViewSet.as_view({
 }) 
 user_detail = UserViewSet.as_view({
     'get': 'retrieve', 
-    'put': 'update',
-    'delete': 'destroy'
 })
 
 urlpatterns = [

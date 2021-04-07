@@ -8,7 +8,7 @@ def user_directory_path(instance, filename):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=24)
+    name = models.CharField(max_length=24, unique=True, blank=False, null=False)
 
     class Meta:
         verbose_name_plural = 'categories'

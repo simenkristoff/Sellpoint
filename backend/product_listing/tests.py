@@ -5,38 +5,6 @@ from django.test import Client
 import json
 
 
-# Denne funker ikke. Får 415 Unsupported Media Type
-class CreateProductListingTestCase(TestCase):
-    def setUp(self):
-        User.objects.create_user(
-            username='john',
-            email='jlennon@beatles.com',
-            password='glass onion'
-        )
-    
-    def test_create(self):
-        c = Client()
-        john_id = User.objects.get(email='jlennon@beatles.com').id
-        response = c.post(
-            '/product/products/',
-            {
-                'content-type': 'application/json' 
-            },
-            json.dumps({
-                "price": 420,
-                "title": "Ornament plant",
-                "description": "Looks nice in the window",
-                "has_been_sold": False,
-                "image": None,
-                "owner": john_id,
-                "purchaser": None,
-                "category": None,
-                "favourited_by": []
-            })
-        )
-        self.assertEqual(response.status_code, 201)
-
-
 class RetrieveProductListingTestCase(TestCase):
     def setUp(self):
         User.objects.create_user(

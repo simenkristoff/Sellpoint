@@ -8,10 +8,14 @@ def user_directory_path(instance, filename):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=24)
+    name = models.CharField(max_length=24, unique=True, blank=False, null=False)
 
     class Meta:
         verbose_name_plural = 'categories'
+
+    def save(self, *args, **kwargs):
+        self.name = self.name[0].upper() + self.name[1:].lower()
+        return super(Category, self).save(*args, **kwargs)
 
 
 class ProductListing(models.Model):

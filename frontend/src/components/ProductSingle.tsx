@@ -45,7 +45,7 @@ export const ProductSingle: React.FC<IProps> = ({
   const [form] = Form.useForm();
   const [isOwner, setIsOwner] = useState<boolean>(false);
   const { productId } = useParams<IParams>();
-  const { title, price, description, has_been_sold, category, owner, owner_details, upload_date, images } = product as ProductEntity;
+  const { title, price, description, category, cat_details, owner, owner_details, upload_date, images } = product as ProductEntity;
 
   useEffect(() => {
     fetchProductById(productId);
@@ -109,7 +109,7 @@ export const ProductSingle: React.FC<IProps> = ({
                 </div>
                 <h1 className='product-title'>{title}</h1>
                 <h2 className='price'>{`${price} kr`}</h2>
-                {category != null && <h5>Kategori: {category}</h5>}
+                {category != null && <h5>Kategori: {cat_details.name}</h5>}
               </header>
 
               <div className='description' dangerouslySetInnerHTML={{ __html: description ? description : '' }} />

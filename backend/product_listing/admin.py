@@ -7,7 +7,6 @@ admin.site.register(Category)
 class ProductImageAdmin(admin.StackedInline):
     model = ProductImage
 
-
 @admin.register(ProductListing)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageAdmin]

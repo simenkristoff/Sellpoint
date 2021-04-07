@@ -1,0 +1,10 @@
+
+.rating {
+  font-size: 1.75rem;
+
+  .star {
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  }
+}

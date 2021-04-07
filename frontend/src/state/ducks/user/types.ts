@@ -16,6 +16,7 @@ export interface UserEntity extends Entity {
   email: string;
   first_name: string;
   last_name: string;
+  rating: number;
 }
 
 /**
@@ -24,10 +25,19 @@ export interface UserEntity extends Entity {
 export const UserActionTypes = {
   FETCH: generateAsyncAction('@@user.FETCH'),
   FETCH_BY_ID: generateAsyncAction('@@user.FETCH_BY_ID'),
-  SET: '@@user.SET',
-  CLEAR: '@@user.CLEAR',
   UPDATE: generateAsyncAction('@@user.UPDATE'),
   DELETE: generateAsyncAction('@@user.DELETE'),
+  RATE_USER: generateAsyncAction('@@user.RATE_USER'),
+  SET: '@@user.SET',
+  CLEAR: '@@user.CLEAR',
+};
+
+/**
+ * Payload for rating a user;
+ */
+export type RateData = {
+  rater: EntityId;
+  rate: number;
 };
 
 /**
@@ -37,6 +47,7 @@ export const UserActionTypes = {
 export interface UserActions {
   fetchUsers: () => TMetaAction;
   fetchUserById: (id: EntityId) => TPayloadMetaAction<EntityId>;
+  setRating: (id: EntityId, data: RateData) => TPayloadMetaAction<RateData>;
   set: (user: UserEntity) => TPayloadMetaAction<UserEntity>;
   clear: () => TMetaAction;
 }

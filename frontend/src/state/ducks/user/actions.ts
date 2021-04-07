@@ -1,6 +1,6 @@
 import { action } from 'typesafe-actions';
 
-import { UserActionTypes, UserEntity } from './types';
+import { RateData, UserActionTypes, UserEntity } from './types';
 import { EntityId } from '@/state/interface';
 
 /**
@@ -52,4 +52,10 @@ export const updateProfile = (id: number | null, data: UserEntity) =>
   action(UserActionTypes.UPDATE.START, data, {
     method: 'put',
     route: `user/users/${id}/`,
+  });
+
+export const setRating = (id: EntityId, data: RateData) =>
+  action(UserActionTypes.RATE_USER.START, data, {
+    method: 'put',
+    route: `user/rate/${id}/`,
   });

@@ -31,11 +31,22 @@
       font-size: 1rem;
     }
 
-    .category {
-      font-size: 1rem;
+    .sm-details {
+      line-height: 1;
       position: absolute;
+      bottom: 0.5rem;
       left: 0.25rem;
       color: rgba(0, 0, 0, 0.8);
+
+
+      > .category::after {
+        content: ' @ ';
+        color: theme(primary);
+      }
+
+      > * {
+        font-size: 0.9rem;
+      }
     }
 
     .price {
